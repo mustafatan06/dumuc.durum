@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paket Menü - d ü mü ç</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f0f0f; color: #fff; line-height: 1.6; overflow-x: hidden; }
+        
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,15,15,0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,152,0,0.2); }
+        .nav-container { width: 92%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-img { height: 40px; width: auto; }
+        .back-btn { text-decoration: none; color: #fff; font-weight: 700; background: #222; padding: 6px 16px; border-radius: 20px; transition: 0.3s; border: 1px solid rgba(255,152,0,0.3); font-size: 0.9rem; }
+        .back-btn:hover { background: #ff9800; color: #fff; }
+        
+        .menu-page-section { padding: 120px 0 60px 0; max-width: 1200px; margin: 0 auto; width: 92%; }
+        .category-title { font-size: 1.8rem; color: #ff9800; margin: 35px 0 20px 0; border-bottom: 2px solid rgba(255,152,0,0.3); padding-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .product-card { background: #141414; border: 1px solid rgba(255,152,0,0.2); border-radius: 14px; padding: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: space-between; }
+
+        .card-img-box { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; margin-bottom: 12px; position: relative; overflow: hidden; }
+        .card-img-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+        .card-img-placeholder { color: #555; font-size: 0.85rem; border: 2px dashed #333; width: 100%; height: 100%; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+
+        .card-info h3 { font-size: 1.35rem; color: #fff; margin-bottom: 6px; font-weight: 700; }
+        .card-ingredients { color: #aaa; font-size: 0.85rem; margin-bottom: 12px; background: #1f140a; padding: 8px 12px; border-left: 3px solid #ff9800; border-radius: 0 6px 6px 0; border: 1px solid rgba(255,152,0,0.1); }
+        
+        .card-prices { margin-bottom: 12px; background: #1a1a1a; padding: 10px; border-radius: 8px; font-size: 0.85rem; }
+        .price-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .price-row:last-child { border-bottom: none; }
+        .price-val { color: #ff9800; font-weight: bold; }
+
+        .card-note { font-size: 0.75rem; color: #aaa; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .card-order-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #ff9800, #ff5722); color: #fff; padding: 10px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(255,152,0,0.3); transition: 0.2s; }
+        .card-order-btn:hover { transform: translateY(-2px); }
+
+        @media(max-width: 768px) {
+            .menu-page-section { padding-top: 100px; width: 95%; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .category-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Ana Sayfa</a>
+        </div>
+    </header>
+
+    <main class="menu-page-section" id="menuContainer"></main>
+
+    <script src="menu-data.js"></script>
+    <script>
+        const categories = {
+            "Dürümlerimiz": ["tavuk-doner", "hatay-dumuc", "zurna-dumuc", "iskenderun-dumuc", "ates-dumuc", "yesilim-dumuc", "chedarli-dumuc", "doritoslu-tako", "barbekulu-dumuc", "kasarli-dumuc"],
+            "Köfteler": ["dumuc-kofte", "dumuc-ates-kofte"],
+            "Burgerler": ["kofte-burger", "double-burger", "citir-tavuk-burger"],
+            "Salatalar": ["dumuc-salata"],
+            "Kumrular": ["kumrum"],
+            "Başlangıçlar": ["sogan-halkasi-4", "sogan-halkasi-8", "baharatli-patates", "citir-tavuk-4", "citir-tavuk-8", "dumuc-baslangic"],
+            "Tatlılar": ["firinda-sutlac"],
+            "İçecekler": ["pepsi", "yedigun", "sevenup", "limonata", "ayran", "tropicana", "salgam", "soda", "su"]
+        };
+
+        let data = getMenuData();
+        let container = document.getElementById('menuContainer');
+
+        for (let catName in categories) {
+            let prodIds = categories[catName];
+            let cardsHtml = "";
+
+            prodIds.forEach(id => {
+                let p = data[id];
+                if (p) {
+                    let imgContent = p.image && p.image.trim() !== "" ? `<img src="${p.image}" alt="${p.name}">` : `<div class="card-img-placeholder"><i class="fa-solid fa-camera"><span>Görsel Yok</span></i></div>`;
+                    
+                    let pricesHtml = "";
+                    for (let gram in p.prices) {
+                        let pr = p.prices[gram];
+                        let normalHtml = pr.normal && pr.normal !== "-" ? `<div class="price-row"><span>Normal:</span> <span class="price-val">${pr.normal}</span></div>` : "";
+                        let dostHtml = pr.dost && pr.dost !== "-" ? `<div class="price-row"><span>2'li Dost Menü:</span> <span class="price-val">${pr.dost}</span></div>` : "";
+                        let kankaHtml = pr.kanka && pr.kanka !== "-" ? `<div class="price-row"><span>3'lü Kanka Menü:</span> <span class="price-val">${pr.kanka}</span></div>` : "";
+
+                        pricesHtml += `
+                            <div style="margin-bottom:6px;">
+                                ${gram !== "Tek" ? `<strong style="color:#ddd; display:block; border-bottom:1px solid #333; margin-bottom:3px;">${gram}</strong>` : ""}
+                                ${normalHtml}${dostHtml}${kankaHtml}
+                            </div>
+                        `;
+                    }
+
+                    cardsHtml += `
+                        <div class="product-card">
+                            <div>
+                                <div class="card-img-box">${imgContent}</div>
+                                <div class="card-info">
+                                    <h3>${p.name}</h3>
+                                    <p class="card-ingredients"><i class="fa-solid fa-utensils" style="color: #ff9800;"></i> ${p.ingredients}</p>
+                                    <div class="card-prices">${pricesHtml}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="card-note"><i class="fa-solid fa-circle-info" style="color: #ff9800;"></i> Patates + İçecek seçeneği dahildir.</p>
+                                <a href="tel:03123563000" class="card-order-btn"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver (Ara)</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML += `
+                <h2 class="category-title"><i class="fa-solid fa-fire" style="font-size:1.5rem;"></i> ${catName}</h2>
+                <div class="menu-grid">${cardsHtml}</div>
+            `;
+        }
+    </script>
+</body>
+</html>

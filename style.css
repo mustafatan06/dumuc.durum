@@ -1,0 +1,70 @@
+/* LOGO BOYUT AYARI */
+.logo-img {
+    height: 45px; /* Logonun boyutu sabitlendi ve temiz görünecek */
+    width: auto;
+}
+
+/* DROPDOWN (AÇILIR MENÜ) TASARIMI */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Açılır kutu (Başlangıçta gizli) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    min-width: 650px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 1000;
+    border: 1px solid #eee;
+    display: none; /* Varsayılan gizli */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Menünün üzerine gelince açılması için */
+.dropdown:hover .dropdown-content {
+    display: grid;
+}
+
+/* Açılır menü sütunları */
+.menu-column h4 {
+    font-size: 1rem;
+    color: #ff9800;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #ff9800;
+}
+
+.menu-column a {
+    display: block;
+    padding: 6px 0;
+    color: #444;
+    font-size: 0.9rem;
+    font-weight: normal !important;
+    text-decoration: none;
+    transition: color 0.2s, padding-left 0.2s;
+}
+
+.menu-column a:hover {
+    color: #ff9800;
+    padding-left: 5px; /* Üzerine gelince hafif sağa kayma efekti */
+}
+
+/* Mobil uyumluluk için küçük ekranlarda alt alta açılma */
+@media (max-width: 768px) {
+    .dropdown-content {
+        min-width: 280px;
+        grid-template-columns: 1fr;
+        left: auto;
+        right: 0;
+        transform: none;
+    }
+}

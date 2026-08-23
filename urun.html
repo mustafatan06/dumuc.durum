@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı - d ü mü ç</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f0f0f; color: #fff; line-height: 1.6; }
+        
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,15,15,0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,152,0,0.2); }
+        .nav-container { width: 95%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-img { height: 45px; width: auto; }
+        .back-btn { text-decoration: none; color: #fff; font-weight: 700; background: #222; padding: 8px 18px; border-radius: 20px; transition: 0.3s; border: 1px solid rgba(255,152,0,0.3); }
+        .back-btn:hover { background: #ff9800; color: #fff; }
+        
+        .product-detail-section { padding: 150px 0 80px 0; min-height: 100vh; display: flex; align-items: center; }
+        .product-container { width: 95%; max-width: 1100px; margin: 0 auto; background: #141414; padding: 40px; border-radius: 14px; border: 1px solid rgba(255,152,0,0.2); display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        /* ÇERÇEVESİZ VE ARKA PLANSIZ GÖRSEL ALANI (Ateş efekti kaldırıldı) */
+        .product-image-box { width: 100%; height: 320px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; position: relative; overflow: hidden; }
+        .product-image-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+        .card-img-placeholder { color: #555; font-size: 0.85rem; border: 2px dashed #333; width: 100%; height: 100%; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+
+        .product-info h1 { font-size: 2.5rem; color: #fff; margin-bottom: 10px; font-weight: 800; }
+        .product-ingredients { color: #aaa; font-size: 0.95rem; margin-bottom: 20px; background: #1f140a; padding: 10px 15px; border-left: 3px solid #ff9800; border-radius: 0 6px 6px 0; border: 1px solid rgba(255,152,0,0.1); }
+        
+        .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 20px; }
+        .price-table { width: 100%; border-collapse: collapse; background: #1a1a1a; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .price-table th, .price-table td { padding: 12px 14px; text-align: left; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .price-table th { background-color: #ff9800; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+        .highlight-price { color: #ff9800; font-weight: bold; }
+
+        .note-text { font-size: 0.85rem; color: #aaa; margin-bottom: 20px; display: flex; align-items: center; gap: 6px; }
+        .order-now-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #ff9800, #ff5722); color: #fff; padding: 12px 28px; border-radius: 30px; text-decoration: none; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 15px rgba(255,152,0,0.3); transition: 0.2s; }
+        .order-now-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,152,0,0.5); }
+
+        @media(max-width: 900px) { .product-container { grid-template-columns: 1fr; padding: 25px; } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="paket-menu.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
+            <a href="paket-menu.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Paket Menüye Dön</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail-section">
+            <div class="product-container">
+                <div class="product-image-box" id="imgBox">
+                    <div class="card-img-placeholder"><i class="fa-solid fa-camera"><span>Görsel Yok</span></i></div>
+                </div>
+                
+                <div class="product-info">
+                    <h1 id="prodName">Yükleniyor...</h1>
+                    <p class="product-ingredients" id="prodIng"></p>
+                    
+                    <div class="table-responsive">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Seçenek / Gram</th>
+                                    <th>Normal</th>
+                                    <th>2'li Dost Menü</th>
+                                    <th>3'lü Kanka Menü</th>
+                                    <th>4'lü Menü</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p class="note-text"><i class="fa-solid fa-circle-info" style="color: #ff9800;"></i> Patates + İçecek seçeneği dahildir[cite: 1, 2, 3].</p>
+                    <a href="tel:03123563000" class="order-now-btn"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver (Ara)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="menu-data.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const prodId = urlParams.get('id');
+        
+        let data = getMenuData();
+        let product = data[prodId];
+
+        if (product) {
+            document.getElementById('prodName').innerText = product.name;
+            document.getElementById('prodIng').innerHTML = `<i class="fa-solid fa-utensils" style="color: #ff9800; margin-right: 8px;"></i> ${product.ingredients}`;
+            
+            if(product.image && product.image.trim() !== "") {
+                document.getElementById('imgBox').innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+            }
+
+            let tbody = document.getElementById('priceTableBody');
+            tbody.innerHTML = "";
+            for (let gram in product.prices) {
+                let p = product.prices[gram];
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${gram}</strong></td>
+                        <td class="highlight-price">${p.normal || '-'}</td>
+                        <td>${p.dost || '-'}</td>
+                        <td>${p.kanka || '-'}</td>
+                        <td>${p.dorthu || '-'}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            document.querySelector('.product-container').innerHTML = "<h2>Ürün bulunamadı!</h2>";
+        }
+    </script>
+</body>
+</html>

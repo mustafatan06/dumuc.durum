@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli - d ü mü ç</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; padding: 40px 20px; }
+        .admin-container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        
+        #loginBox { text-align: center; padding: 40px 0; }
+        #loginBox input { padding: 12px; width: 250px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; margin-right: 10px; }
+        .login-btn { padding: 12px 25px; background: #ff9800; color: #fff; border: none; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        
+        #panelContent { display: none; }
+        h1 { color: #ff9800; margin-bottom: 20px; font-size: 1.8rem; display: flex; justify-content: space-between; align-items: center; }
+        .back-site { font-size: 0.9rem; background: #333; color: #fff; padding: 6px 14px; border-radius: 20px; text-decoration: none; }
+        
+        .product-card { background: #fafafa; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .product-card h3 { color: #222; margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        
+        .form-row { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; align-items: center; }
+        .form-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
+        
+        label { font-size: 0.8rem; font-weight: bold; color: #666; }
+        input[type="text"] { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; }
+        
+        .save-btn { background: #25d366; color: #fff; border: none; padding: 9px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 15px; }
+        .save-btn:hover { background: #20ba5a; }
+        
+        @media(max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- GİRİŞ EKRANI -->
+        <div id="loginBox">
+            <h2 style="margin-bottom: 20px; color: #222;"><i class="fa-solid fa-lock" style="color: #ff9800;"></i> Dümüç Admin Girişi</h2>
+            <p style="margin-bottom: 15px; color: #666;">Yönetim paneline erişmek için şifrenizi girin (Şifre: 1234)</p>
+            <input type="password" id="passwordInput" placeholder="Şifre (1234)">
+            <button class="login-btn" onclick="checkLogin()">Giriş Yap</button>
+            <p id="errorMsg" style="color: red; margin-top: 10px; display: none;">Şifre hatalı!</p>
+        </div>
+
+        <!-- PANEL ANA EKRANI -->
+        <div id="panelContent">
+            <h1>
+                <span><i class="fa-solid fa-sliders"></i> Ürün & Fiyat Yönetimi</span>
+                <a href="index.html" class="back-site">Siteye Dön</a>
+            </h1>
+            <p style="margin-bottom: 25px; color: #666;">Ürünlerin fiyatlarını güncelleyebilir ve görsellerin dosya adını (Örn: <strong>hatay.jpg</strong>) yazarak bağlayabilirsiniz.</p>
+
+            <div id="adminFormContainer"></div>
+        </div>
+    </div>
+
+    <script src="menu-data.js"></script>
+    <script>
+        function checkLogin() {
+            let pass = document.getElementById('passwordInput').value;
+            if(pass === "1234") {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('panelContent').style.display = 'block';
+                renderAdminForm();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        let data = getMenuData();
+        let container = document.getElementById('adminFormContainer');
+
+        function renderAdminForm() {
+            container.innerHTML = "";
+            for (let id in data) {
+                let prod = data[id];
+                let pricesHtml = "";
+                
+                for (let gram in prod.prices) {
+                    let p = prod.prices[gram];
+                    pricesHtml += `
+                        <div style="margin-top: 6px;">
+                            <strong>${gram}</strong>
+                            <div class="form-group">
+                                <div><label>Normal</label><input type="text" id="${id}_${gram}_normal" value="${p.normal}"></div>
+                                <div><label>Dost Menü</label><input type="text" id="${id}_${gram}_dost" value="${p.dost}"></div>
+                                <div><label>Kanka Menü</label><input type="text" id="${id}_${gram}_kanka" value="${p.kanka}"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="product-card">
+                        <h3><i class="fa-solid fa-utensils" style="color:#ff9800;"></i> ${prod.name}</h3>
+                        <div class="form-row">
+                            <div>
+                                <label>Görsel Dosya Adı</label>
+                                <input type="text" id="${id}_image" value="${prod.image || ''}" placeholder="Orn: hatay.jpg" style="margin-top: 5px;">
+                                <p style="font-size:0.75rem; color:#888; margin-top:4px;">Fotoğrafı klasöre atıp adını buraya yazın.</p>
+                            </div>
+                            <div>
+                                ${pricesHtml}
+                            </div>
+                        </div>
+                        <button class="save-btn" onclick="updateProduct('${id}')"><i class="fa-solid fa-floppy-disk"></i> Değişiklikleri Kaydet</button>
+                    </div>
+                `;
+            }
+        }
+
+        function updateProduct(id) {
+            let prod = data[id];
+            prod.image = document.getElementById(`${id}_image`).value;
+            
+            for (let gram in prod.prices) {
+                prod.prices[gram].normal = document.getElementById(`${id}_${gram}_normal`).value;
+                prod.prices[gram].dost = document.getElementById(`${id}_${gram}_dost`).value;
+                prod.prices[gram].kanka = document.getElementById(`${id}_${gram}_kanka`).value;
+            }
+            saveMenuData(data);
+            alert(prod.name + " başarıyla güncellendi!");
+        }
+    </script>
+</body>
+</html>

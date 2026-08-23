@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaşarlı Dümüç - d ü mü ç</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #ffffff; color: #222; line-height: 1.6; }
+        
+        /* ÜST MENÜ */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000; padding: 12px 0; }
+        .nav-container { width: 95%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-img { height: 45px; width: auto; }
+        .back-btn { text-decoration: none; color: #333; font-weight: 700; background: #f2f2f2; padding: 8px 18px; border-radius: 20px; transition: 0.3s; }
+        .back-btn:hover { background: #ff9800; color: #fff; }
+        
+        /* SAYFAYI KAPLAYAN ANA BÖLÜM */
+        .product-detail-section { padding: 150px 0 80px 0; min-height: 100vh; display: flex; align-items: center; }
+        .product-container { width: 95%; max-width: 1200px; margin: 0 auto; background: #fafafa; padding: 50px; border-radius: 16px; border: 1px solid #eaeaea; display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        
+        /* GÖRSEL ALANI */
+        .product-image-box { width: 100%; height: 400px; background: #eaeaea; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; font-weight: bold; gap: 12px; border: 2px dashed #ccc; }
+        .product-image-box i { font-size: 3rem; color: #ff9800; }
+
+        /* VİBRANLI VE GÜÇLÜ YAZI STİLLERİ */
+        .product-info h1 { font-size: 2.8rem; color: #111; margin-bottom: 12px; font-weight: 800; letter-spacing: -0.5px; }
+        .product-ingredients { color: #444; font-size: 1.1rem; margin-bottom: 25px; font-weight: 500; background: #fff3e0; padding: 12px 18px; border-left: 4px solid #ff9800; border-radius: 0 8px 8px 0; }
+        
+        /* FİYAT TABLOSU */
+        .price-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .price-table th, .price-table td { padding: 14px 16px; text-align: left; font-size: 1rem; border-bottom: 1px solid #f0f0f0; }
+        .price-table th { background-color: #ff9800; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; }
+        .price-table tr:last-child td { border-bottom: none; }
+        .highlight-price { color: #ff9800; font-weight: 800; font-size: 1.1rem; }
+
+        .note-text { font-size: 0.95rem; color: #555; margin-bottom: 25px; font-weight: 600; }
+
+        /* SİPARİŞ BUTONU */
+        .order-now-btn { display: inline-flex; align-items: center; gap: 12px; background: #25d366; color: #fff; padding: 14px 32px; border-radius: 35px; text-decoration: none; font-size: 1.1rem; font-weight: bold; transition: background 0.3s, transform 0.2s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+        .order-now-btn:hover { background: #20ba5a; transform: translateY(-2px); }
+
+        @media(max-width: 900px) { 
+            .product-container { grid-template-columns: 1fr; padding: 30px; } 
+            .product-info h1 { font-size: 2.2rem; }
+            .product-image-box { height: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail-section">
+            <div class="product-container">
+                <!-- Ürün Görseli Alanı -->
+                <div class="product-image-box">
+                    <i class="fa-solid fa-burger"></i>
+                    <span>Ürün Görseli Ekle</span>
+                </div>
+                
+                <!-- Ürün Bilgileri ve Fiyat Tablosu -->
+                <div class="product-info">
+                    <h1>Kaşarlı Dümüç</h1>
+                    <p class="product-ingredients"><i class="fa-solid fa-utensils" style="color: #ff9800; margin-right: 8px;"></i> İçindekiler: Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez[cite: 2]</p>
+                    
+                    <table class="price-table">
+                        <thead>
+                            <tr>
+                                <th>Gramaj</th>
+                                <th>Normal</th>
+                                <th>2'li Dost Menü</th>
+                                <th>3'lü Kanka Menü</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>75 gram</strong></td>
+                                <td class="highlight-price">180 TL[cite: 2]</td>
+                                <td>260 TL[cite: 2]</td>
+                                <td>500 TL[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>100 gram</strong></td>
+                                <td class="highlight-price">210 TL[cite: 2]</td>
+                                <td>290 TL[cite: 2]</td>
+                                <td>560 TL[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>125 gram</strong></td>
+                                <td class="highlight-price">235 TL[cite: 2]</td>
+                                <td>315 TL[cite: 2]</td>
+                                <td>610 TL[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="note-text"><i class="fa-solid fa-circle-info" style="color: #ff9800;"></i> (Patates + İçecek) eklemesi 80 TL'dir[cite: 2].</p>
+                    <a href="https://wa.me/905000000000" target="_blank" class="order-now-btn"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp ile Sipariş Ver</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı - Mobil - d ü mü ç</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #ffffff; color: #222; line-height: 1.5; padding-bottom: 40px; }
+        
+        /* MOBİL ÜST MENÜ */
+        .m-header { position: fixed; top: 0; left: 0; width: 100%; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); z-index: 1000; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .m-logo { height: 35px; width: auto; }
+        .m-back-btn { text-decoration: none; color: #333; font-weight: 600; background: #f2f2f2; padding: 6px 12px; border-radius: 15px; font-size: 0.85rem; }
+        
+        /* MOBİL İÇERİK ALANI (DİKEY VE FERAH) */
+        .m-main { padding-top: 80px; width: 92%; max-width: 480px; margin: 0 auto; }
+        
+        .m-image-box { 
+            width: 100%; 
+            height: 280px; 
+            background: #fafafa; 
+            border-radius: 14px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            overflow: hidden; 
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
+        }
+        .m-image-box img { width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 2; }
+
+        /* ATEŞ ANİMASYONU MOBİL UYARLI */
+        .fire-container {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70%; height: 50px; z-index: 1; pointer-events: none; filter: blur(6px); opacity: 0.7;
+        }
+        .fire-particle {
+            position: absolute; bottom: 0; background: linear-gradient(to top, #ff3d00, #ff9800, transparent); border-radius: 50% 50% 20% 20%; animation: riseFlame 1.3s infinite ease-in-out;
+        }
+        .fire-particle:nth-child(1) { left: 10%; width: 25px; height: 40px; animation-delay: 0s; }
+        .fire-particle:nth-child(2) { left: 35%; width: 35px; height: 55px; animation-delay: 0.3s; background: linear-gradient(to top, #ff6d00, #ffc107, transparent); }
+        .fire-particle:nth-child(3) { left: 60%; width: 30px; height: 45px; animation-delay: 0.6s; }
+        .fire-particle:nth-child(4) { left: 80%; width: 25px; height: 50px; animation-delay: 0.2s; }
+
+        @keyframes riseFlame {
+            0% { transform: translateY(8px) scaleX(0.8); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-30px) scaleX(1.2) scaleY(1.4); opacity: 0; }
+        }
+
+        .m-info h1 { font-size: 1.8rem; color: #111; margin-bottom: 8px; font-weight: 800; }
+        .m-ingredients { color: #444; font-size: 0.95rem; margin-bottom: 18px; font-weight: 500; background: #fff3e0; padding: 10px 14px; border-left: 4px solid #ff9800; border-radius: 0 8px 8px 0; }
+        
+        /* MOBİL FİYAT TABLOSU */
+        .m-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #e0e0e0; }
+        .m-table th, .m-table td { padding: 10px 12px; text-align: left; font-size: 0.88rem; border-bottom: 1px solid #f0f0f0; }
+        .m-table th { background-color: #ff9800; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+        .m-highlight { color: #ff9800; font-weight: 800; }
+
+        .m-note { font-size: 0.85rem; color: #555; margin-bottom: 20px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        
+        .m-order-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: #25d366; color: #fff; width: 100%; padding: 14px; border-radius: 30px; text-decoration: none; font-size: 1.05rem; font-weight: bold; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
+    </style>
+</head>
+<body>
+
+    <header class="m-header">
+        <a href="index.html"><img src="logo.png" alt="Logo" class="m-logo"></a>
+        <a href="index.html" class="m-back-btn"><i class="fa-solid fa-arrow-left"></i> Geri</a>
+    </header>
+
+    <main class="m-main">
+        <div class="m-image-box" id="mImgBox">
+            <i class="fa-solid fa-burger" style="font-size: 2.5rem; color: #ff9800;"></i>
+        </div>
+        
+        <div class="m-info">
+            <h1 id="mProdName">Yükleniyor...</h1>
+            <p class="m-ingredients" id="mProdIng"></p>
+            
+            <table class="m-table">
+                <thead>
+                    <tr>
+                        <th>Gramaj</th>
+                        <th>Normal</th>
+                        <th>2'li Dost</th>
+                        <th>3'lü Kanka</th>
+                    </tr>
+                </thead>
+                <tbody id="mPriceBody"></tbody>
+            </table>
+
+            <p class="m-note"><i class="fa-solid fa-circle-info" style="color: #ff9800;"></i> (Patates + İçecek) eklemesi 80 TL'dir.</p>
+            <a href="https://wa.me/905000000000" target="_blank" class="m-order-btn"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp ile Sipariş Ver</a>
+        </div>
+    </main>
+
+    <script src="menu-data.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const prodId = urlParams.get('id');
+        
+        let data = getMenuData();
+        let product = data[prodId];
+
+        if (product) {
+            document.getElementById('mProdName').innerText = product.name;
+            document.getElementById('mProdIng').innerHTML = `<i class="fa-solid fa-utensils" style="color: #ff9800;"></i> ${product.ingredients}`;
+            
+            if(product.image && product.image.trim() !== "") {
+                document.getElementById('mImgBox').innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="fire-container">
+                        <div class="fire-particle"></div>
+                        <div class="fire-particle"></div>
+                        <div class="fire-particle"></div>
+                        <div class="fire-particle"></div>
+                    </div>
+                `;
+            }
+
+            let tbody = document.getElementById('mPriceBody');
+            tbody.innerHTML = "";
+            for (let gram in product.prices) {
+                let p = product.prices[gram];
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${gram}</strong></td>
+                        <td class="m-highlight">${p.normal}</td>
+                        <td>${p.dost}</td>
+                        <td>${p.kanka}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            document.querySelector('.m-main').innerHTML = "<h2>Ürün bulunamadı!</h2>";
+        }
+    </script>
+</body>
+</html>
