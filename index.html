@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #030303; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        body { background-color: #030303; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow-x: hidden; position: relative; padding: 20px; }
         
         /* ÇOK YOĞUN ALEV VE PATLAMA ARKA PLANI */
-        .fire-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 120%, rgba(255, 69, 0, 0.5) 0%, rgba(255, 152, 0, 0.25) 40%, transparent 80%); z-index: 1; pointer-events: none; animation: intenseGlow 2.5s ease-in-out infinite alternate; }
+        .fire-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 120%, rgba(255, 69, 0, 0.5) 0%, rgba(255, 152, 0, 0.25) 40%, transparent 80%); z-index: 1; pointer-events: none; animation: intenseGlow 2.5s ease-in-out infinite alternate; }
         
         @keyframes intenseGlow {
             0% { opacity: 0.6; transform: scale(1); filter: brightness(1); }
@@ -36,22 +36,22 @@
             100% { transform: translateY(-10vh) scale(1.8) rotate(360deg); opacity: 0; }
         }
 
-        /* ANA İÇERİK KUTUSU */
-        .container { position: relative; z-index: 10; text-align: center; max-width: 800px; padding: 45px 25px; width: 90%; background: rgba(14, 10, 8, 0.9); backdrop-filter: blur(15px); border: 1.5px solid rgba(255, 152, 0, 0.45); border-radius: 20px; box-shadow: 0 0 70px rgba(255, 87, 34, 0.4), inset 0 0 30px rgba(255, 152, 0, 0.2); animation: cardEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        /* ANA İÇERİK KUTUSU (MOBİL UYUMLU) */
+        .container { position: relative; z-index: 10; text-align: center; max-width: 800px; padding: 40px 30px; width: 100%; background: rgba(14, 10, 8, 0.92); backdrop-filter: blur(15px); border: 1.5px solid rgba(255, 152, 0, 0.45); border-radius: 20px; box-shadow: 0 0 70px rgba(255, 87, 34, 0.4), inset 0 0 30px rgba(255, 152, 0, 0.2); animation: cardEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @keyframes cardEntrance {
             0% { opacity: 0; transform: translateY(40px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .logo-img { height: 80px; width: auto; margin-bottom: 25px; filter: drop-shadow(0 0 20px rgba(255, 152, 0, 0.8)); animation: logoFloat 2.5s ease-in-out infinite alternate; }
+        .logo-img { height: 75px; width: auto; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 152, 0, 0.8)); animation: logoFloat 2.5s ease-in-out infinite alternate; }
 
         @keyframes logoFloat {
             0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-8px) scale(1.03); }
+            100% { transform: translateY(-6px) scale(1.03); }
         }
 
-        .badge { display: inline-block; background: linear-gradient(135deg, #ff9800, #ff3d00); color: #fff; padding: 7px 20px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(255, 61, 0, 0.6); animation: badgePulse 1.5s infinite; }
+        .badge { display: inline-block; background: linear-gradient(135deg, #ff9800, #ff3d00); color: #fff; padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; box-shadow: 0 0 20px rgba(255, 61, 0, 0.6); animation: badgePulse 1.5s infinite; }
 
         @keyframes badgePulse {
             0% { box-shadow: 0 0 10px rgba(255,61,0,0.5); }
@@ -59,22 +59,27 @@
             100% { box-shadow: 0 0 10px rgba(255,61,0,0.5); }
         }
 
-        h1 { font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 15px; line-height: 1.3; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
+        h1 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 15px; line-height: 1.3; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
         h1 span { background: linear-gradient(135deg, #ffeb3b, #ff5722); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; filter: drop-shadow(0 0 10px rgba(255,152,0,0.4)); }
 
-        p { font-size: 1.15rem; color: #ddd; max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6; }
+        p { font-size: 1.1rem; color: #ddd; max-width: 600px; margin: 0 auto 25px auto; line-height: 1.6; }
 
-        .contact-box { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, rgba(255,152,0,0.2), rgba(255,87,34,0.3)); border: 1.5px solid rgba(255, 152, 0, 0.6); padding: 14px 28px; border-radius: 30px; color: #ffbc00; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 20px rgba(255,87,34,0.3); margin-bottom: 25px; }
+        .contact-box { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, rgba(255,152,0,0.2), rgba(255,87,34,0.3)); border: 1.5px solid rgba(255, 152, 0, 0.6); padding: 13px 25px; border-radius: 30px; color: #ffbc00; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 20px rgba(255,87,34,0.3); margin-bottom: 25px; word-break: break-word; }
         .contact-box:hover { background: linear-gradient(135deg, #ff9800, #ff3d00); color: #fff; transform: translateY(-3px); box-shadow: 0 6px 30px rgba(255, 87, 34, 0.6); }
 
         /* TAN MEDYA TASARIM İMZASI */
-        .agency-credit { font-size: 0.8rem; color: #777; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; }
+        .agency-credit { font-size: 0.75rem; color: #777; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; }
         .agency-credit span { color: #ff9800; font-weight: 700; }
 
+        /* MOBİL UYUMLULUK AYARLARI */
         @media(max-width: 768px) {
-            h1 { font-size: 1.7rem; }
-            p { font-size: 1rem; }
-            .container { padding: 30px 15px; }
+            body { padding: 10px; }
+            .container { padding: 25px 15px; width: 100%; }
+            h1 { font-size: 1.5rem; margin-bottom: 12px; }
+            p { font-size: 0.95rem; margin-bottom: 20px; }
+            .logo-img { height: 60px; margin-bottom: 15px; }
+            .contact-box { padding: 12px 18px; font-size: 0.85rem; width: 100%; }
+            .badge { font-size: 0.75rem; padding: 5px 14px; }
         }
     </style>
 </head>
@@ -103,12 +108,13 @@
     <script>
         const container = document.getElementById('effects-container');
 
-        // Çok Yoğun Uçuşan Köz ve Kıvılcım Parçacıkları (80 adet)
-        for (let i = 0; i < 80; i++) {
+        // Çok Yoğun Uçuşan Köz ve Kıvılcım Parçacıkları (Mobilde performans için 50, masaüstünde 80)
+        const sparkCount = window.innerWidth < 768 ? 40 : 80;
+        for (let i = 0; i < sparkCount; i++) {
             const spark = document.createElement('div');
             spark.classList.add('spark');
             
-            const size = Math.random() * 7 + 2 + 'px';
+            const size = Math.random() * 6 + 2 + 'px';
             spark.style.width = size;
             spark.style.height = size;
             
@@ -118,17 +124,18 @@
             
             const colors = ['#ffeb3b', '#ff9800', '#ff5722', '#ff3d00', '#ffffff'];
             spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-            spark.style.boxShadow = `0 0 ${Math.random() * 15 + 8}px ${spark.style.background}`;
+            spark.style.boxShadow = `0 0 ${Math.random() * 12 + 6}px ${spark.style.background}`;
 
             container.appendChild(spark);
         }
 
-        // Çoklu Rastgele Patlama / Parlama Küreleri (8 adet)
-        for (let j = 0; j < 8; j++) {
+        // Çoklu Rastgele Patlama / Parlama Küreleri
+        const orbCount = window.innerWidth < 768 ? 4 : 8;
+        for (let j = 0; j < orbCount; j++) {
             const orb = document.createElement('div');
             orb.classList.add('explosion-orb');
             
-            const orbSize = (Math.random() * 250 + 120) + 'px';
+            const orbSize = (Math.random() * 200 + 100) + 'px';
             orb.style.width = orbSize;
             orb.style.height = orbSize;
             
