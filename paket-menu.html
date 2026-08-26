@@ -47,7 +47,7 @@
         .desktop-link { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.95rem; }
 
         /* Ana İçerik */
-        .container { max-width: 900px; margin: 130px auto 50px auto; width: 92%; position: relative; z-index: 2; }
+        .container { max-width: 950px; margin: 130px auto 50px auto; width: 92%; position: relative; z-index: 2; }
         .back-link { display: inline-block; margin-bottom: 20px; color: #ff9800; text-decoration: none; font-weight: 600; }
         
         .section-header { text-align: center; margin-bottom: 30px; }
@@ -70,29 +70,32 @@
         }
         .btn-siparis-ver:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 0 30px rgba(255, 51, 0, 1); }
 
-        /* KATEGORİ BAŞLIKLARI */
+        /* KATEGORİ BAŞLIKLARI VE GÖRSELLİ KART YAPISI */
         .menu-category-title { font-size: 1.8rem; color: #ff9800; border-bottom: 2px solid #ff5722; padding-bottom: 8px; margin: 40px 0 20px 0; }
         
-        /* MOBİL UYUMLU KART YAPISI (FİYATLAR ASLA ŞAŞIRMAZ) */
         .menu-items-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         .menu-item-card {
             background: rgba(18, 8, 4, 0.95); border: 1px solid rgba(255, 87, 34, 0.4);
             border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
         }
-        .item-name { font-size: 1.3rem; color: #ffeb3b; font-weight: 700; margin-bottom: 5px; }
-        .item-desc { color: #ccc; font-size: 0.9rem; margin-bottom: 8px; }
-        .item-extra { color: #ff9800; font-size: 0.85rem; font-style: italic; margin-bottom: 15px; }
+        .item-img-box { width: 100px; height: 100px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,87,34,0.3); }
+        .item-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+        
+        .item-info { flex: 1; min-width: 240px; }
+        .item-name { font-size: 1.3rem; color: #ffeb3b; font-weight: 700; margin-bottom: 4px; }
+        .item-desc { color: #ccc; font-size: 0.88rem; margin-bottom: 6px; }
+        .item-extra { color: #ff9800; font-size: 0.82rem; font-style: italic; margin-bottom: 10px; }
 
-        /* Gramaj ve Fiyat Satırları (Esnek ve Mobilde Alt Alta / Yan Yana Düzen) */
-        .price-row-container { display: flex; flex-direction: column; gap: 10px; }
+        .price-row-container { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; }
         .price-row {
             background: rgba(255, 87, 34, 0.08); border: 1px solid rgba(255, 87, 34, 0.2);
-            border-radius: 8px; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center;
+            border-radius: 8px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 8px;
         }
-        .gram-title { color: #ff9800; font-weight: 700; font-size: 0.95rem; }
-        .prices-group { display: flex; gap: 12px; flex-wrap: wrap; }
-        .price-badge { background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.08); }
+        .gram-title { color: #ff9800; font-weight: 700; font-size: 0.9rem; }
+        .prices-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .price-badge { background: rgba(0,0,0,0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.08); }
         .price-badge span { color: #ffeb3b; font-weight: 700; }
 
         .footer { text-align: center; padding: 30px 15px; color: #777; font-size: 0.88rem; border-top: 1px solid rgba(255,87,34,0.2); margin-top: 50px; background: rgba(8, 3, 1, 0.98); }
@@ -102,9 +105,10 @@
             .desktop-link { display: none; }
             .container { margin-top: 100px; width: 95%; }
             .section-header h2 { font-size: 1.7rem; }
+            .menu-item-card { flex-direction: column; align-items: center; text-align: center; padding: 15px; }
+            .item-img-box { width: 110px; height: 110px; }
             .price-row { flex-direction: column; align-items: flex-start; gap: 6px; }
             .prices-group { width: 100%; justify-content: space-between; }
-            .price-badge { font-size: 0.8rem; padding: 4px 6px; }
             
             .dropdown-menu {
                 position: fixed; top: 65px; left: 50%; transform: translateX(-50%);
@@ -198,9 +202,12 @@
             
             <!-- Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Dümüç</div>
-                <div class="item-desc">Tavuk döner, yeşillik, domates, soğan, turşu</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="dumuc.jpg" alt="Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç</div>
+                    <div class="item-desc">Tavuk döner, yeşillik, domates, soğan, turşu</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>145 TL</span></div><div class="price-badge">2'li Dost: <span>245 TL</span></div><div class="price-badge">3'lü Kanka: <span>470 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>175 TL</span></div><div class="price-badge">2'li Dost: <span>275 TL</span></div><div class="price-badge">3'lü Kanka: <span>530 TL</span></div></div></div>
@@ -210,9 +217,12 @@
 
             <!-- Hatay Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Hatay Dümüç</div>
-                <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, hatay sos</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="hatay.jpg" alt="Hatay Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Hatay Dümüç</div>
+                    <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, hatay sos</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>170 TL</span></div><div class="price-badge">2'li Dost: <span>270 TL</span></div><div class="price-badge">3'lü Kanka: <span>520 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>210 TL</span></div><div class="price-badge">2'li Dost: <span>310 TL</span></div><div class="price-badge">3'lü Kanka: <span>600 TL</span></div></div></div>
@@ -222,9 +232,12 @@
 
             <!-- Zurna Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Zurna Dümüç</div>
-                <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Zurna Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Zurna Dümüç</div>
+                    <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>185 TL</span></div><div class="price-badge">2'li Dost: <span>285 TL</span></div><div class="price-badge">3'lü Kanka: <span>550 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>215 TL</span></div><div class="price-badge">2'li Dost: <span>315 TL</span></div><div class="price-badge">3'lü Kanka: <span>610 TL</span></div></div></div>
@@ -234,9 +247,12 @@
 
             <!-- İskenderun Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">İskenderun Dümüç</div>
-                <div class="item-desc">Tavuk döner, soğan, domates, maydanoz, dümüç sos</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="İskenderun Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">İskenderun Dümüç</div>
+                    <div class="item-desc">Tavuk döner, soğan, domates, maydanoz, dümüç sos</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>190 TL</span></div><div class="price-badge">2'li Dost: <span>290 TL</span></div><div class="price-badge">3'lü Kanka: <span>560 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>225 TL</span></div><div class="price-badge">2'li Dost: <span>325 TL</span></div><div class="price-badge">3'lü Kanka: <span>630 TL</span></div></div></div>
@@ -246,9 +262,12 @@
 
             <!-- Ateş Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Ateş Dümüç</div>
-                <div class="item-desc">Tavuk Döner, patates, soğan, turşu, domates, maydanoz, acılı dümüç sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Ateş Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Ateş Dümüç</div>
+                    <div class="item-desc">Tavuk Döner, patates, soğan, turşu, domates, maydanoz, acılı dümüç sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>255 TL</span></div><div class="price-badge">2'li Dost: <span>355 TL</span></div><div class="price-badge">3'lü Kanka: <span>690 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>205 TL</span></div><div class="price-badge">2'li Dost: <span>285 TL</span></div><div class="price-badge">3'lü Kanka: <span>550 TL</span></div></div></div>
@@ -258,9 +277,12 @@
 
             <!-- Yeşillim Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Yeşillim Dümüç</div>
-                <div class="item-desc">Tavuk döner, aysberg, kırmızı kıvırcık, patates, domates, turşu, dümüç sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Yeşillim Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Yeşillim Dümüç</div>
+                    <div class="item-desc">Tavuk döner, aysberg, kırmızı kıvırcık, patates, domates, turşu, dümüç sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>240 TL</span></div><div class="price-badge">2'li Dost: <span>340 TL</span></div><div class="price-badge">3'lü Kanka: <span>660 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>280 TL</span></div><div class="price-badge">2'li Dost: <span>380 TL</span></div><div class="price-badge">3'lü Kanka: <span>740 TL</span></div></div></div>
@@ -270,9 +292,12 @@
 
             <!-- Chedarlı Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Chedarlı Dümüç</div>
-                <div class="item-desc">Tavuk döner, patates, yeşillik, turşu, cheddar sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Chedarlı Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Chedarlı Dümüç</div>
+                    <div class="item-desc">Tavuk döner, patates, yeşillik, turşu, cheddar sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>265 TL</span></div><div class="price-badge">2'li Dost: <span>365 TL</span></div><div class="price-badge">3'lü Kanka: <span>710 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>305 TL</span></div><div class="price-badge">2'li Dost: <span>405 TL</span></div><div class="price-badge">3'lü Kanka: <span>790 TL</span></div></div></div>
@@ -282,9 +307,12 @@
 
             <!-- Doritoslu Tako Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Doritoslu Tako Dümüç</div>
-                <div class="item-desc">Tavuk döner, doritos, chedar sos, patates, turşu, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Doritoslu Tako Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Doritoslu Tako Dümüç</div>
+                    <div class="item-desc">Tavuk döner, doritos, chedar sos, patates, turşu, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>270 TL</span></div><div class="price-badge">2'li Dost: <span>370 TL</span></div><div class="price-badge">3'lü Kanka: <span>720 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>315 TL</span></div><div class="price-badge">2'li Dost: <span>415 TL</span></div><div class="price-badge">3'lü Kanka: <span>810 TL</span></div></div></div>
@@ -294,9 +322,12 @@
 
             <!-- Barbekülü Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Barbekülü Dümüç</div>
-                <div class="item-desc">Tavuk döner, patates, turşu, barbekü sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Barbekülü Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Barbekülü Dümüç</div>
+                    <div class="item-desc">Tavuk döner, patates, turşu, barbekü sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>175 TL</span></div><div class="price-badge">2'li Dost: <span>255 TL</span></div><div class="price-badge">3'lü Kanka: <span>490 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>255 TL</span></div><div class="price-badge">2'li Dost: <span>355 TL</span></div><div class="price-badge">3'lü Kanka: <span>690 TL</span></div></div></div>
@@ -306,9 +337,12 @@
 
             <!-- Kaşarlı Dümüç -->
             <div class="menu-item-card">
-                <div class="item-name">Kaşarlı Dümüç</div>
-                <div class="item-desc">Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Kaşarlı Dümüç" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Kaşarlı Dümüç</div>
+                    <div class="item-desc">Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>265 TL</span></div><div class="price-badge">2'li Dost: <span>365 TL</span></div><div class="price-badge">3'lü Kanka: <span>710 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>305 TL</span></div><div class="price-badge">2'li Dost: <span>405 TL</span></div><div class="price-badge">3'lü Kanka: <span>560 TL</span></div></div></div>
@@ -322,18 +356,24 @@
         <h3 class="menu-category-title">Köfteler</h3>
         <div class="menu-items-grid">
             <div class="menu-item-card">
-                <div class="item-name">Dümüç Köfte</div>
-                <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Dümüç Köfte" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç Köfte</div>
+                    <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>365 TL</span></div><div class="price-badge">2'li Dost: <span>465 TL</span></div><div class="price-badge">3'lü Kanka: <span>910 TL</span></div></div></div>
                 </div>
             </div>
 
             <div class="menu-item-card">
-                <div class="item-name">Dümüç Ateş Köfte</div>
-                <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç ateş sos, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Dümüç Ateş Köfte" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç Ateş Köfte</div>
+                    <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç ateş sos, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>365 TL</span></div><div class="price-badge">2'li Dost: <span>465 TL</span></div><div class="price-badge">3'lü Kanka: <span>910 TL</span></div></div></div>
                 </div>
@@ -344,27 +384,36 @@
         <h3 class="menu-category-title">Burgerler</h3>
         <div class="menu-items-grid">
             <div class="menu-item-card">
-                <div class="item-name">Dümüç Köfte Burger</div>
-                <div class="item-desc">Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 80 TL</div>
+                <div class="item-img-box"><img src="burger.jpg" alt="Dümüç Köfte Burger" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç Köfte Burger</div>
+                    <div class="item-desc">Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 80 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>330 TL</span></div><div class="price-badge">2'li Dost: <span>430 TL</span></div><div class="price-badge">3'lü Kanka: <span>840 TL</span></div></div></div>
                 </div>
             </div>
 
             <div class="menu-item-card">
-                <div class="item-name">Dümüç Double Burger</div>
-                <div class="item-desc">2 Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="burger.jpg" alt="Dümüç Double Burger" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç Double Burger</div>
+                    <div class="item-desc">2 Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">200 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>460 TL</span></div><div class="price-badge">2'li Dost: <span>560 TL</span></div><div class="price-badge">3'lü Kanka: <span>1100 TL</span></div></div></div>
                 </div>
             </div>
 
             <div class="menu-item-card">
-                <div class="item-name">Dümüç Çıtır Tavuk Burger</div>
-                <div class="item-desc">Çıtır tavuklar, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Dümüç Çıtır Tavuk Burger" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç Çıtır Tavuk Burger</div>
+                    <div class="item-desc">Çıtır tavuklar, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>220 TL</span></div><div class="price-badge">2'li Dost: <span>320 TL</span></div><div class="price-badge">3'lü Kanka: <span>620 TL</span></div></div></div>
                 </div>
@@ -375,17 +424,23 @@
         <h3 class="menu-category-title">Salatalar & Kumrular</h3>
         <div class="menu-items-grid">
             <div class="menu-item-card">
-                <div class="item-name">Dümüç Salata</div>
-                <div class="item-desc">Aysberg, kırmızı kıvırcık, havuç, mısır, dümüç sos, çıtır tavuklar</div>
+                <div class="item-img-box"><img src="logo.png" alt="Dümüç Salata" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Dümüç Salata</div>
+                    <div class="item-desc">Aysberg, kırmızı kıvırcık, havuç, mısır, dümüç sos, çıtır tavuklar</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">120 gram</span><div class="prices-group"><div class="price-badge">Fiyat: <span>280 TL</span></div></div></div>
                 </div>
             </div>
 
             <div class="menu-item-card">
-                <div class="item-name">Kumrum</div>
-                <div class="item-desc">Sosis, sucuk, kaşar, turşu, ketçap, mayonez</div>
-                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <div class="item-img-box"><img src="logo.png" alt="Kumrum" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Kumrum</div>
+                    <div class="item-desc">Sosis, sucuk, kaşar, turşu, ketçap, mayonez</div>
+                    <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">200 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>185 TL</span></div><div class="price-badge">2'li Dost: <span>285 TL</span></div><div class="price-badge">3'lü Kanka: <span>550 TL</span></div></div></div>
                 </div>
@@ -396,7 +451,11 @@
         <h3 class="menu-category-title">Başlangıçlar, Tatlılar & İçecekler</h3>
         <div class="menu-items-grid">
             <div class="menu-item-card">
-                <div class="item-name">Ek Lezzetler & İçecekler</div>
+                <div class="item-img-box"><img src="logo.png" alt="Ek Lezzetler" onerror="this.src='logo.png'"></div>
+                <div class="item-info">
+                    <div class="item-name">Ek Lezzetler & İçecekler</div>
+                    <div class="item-desc">Çıtır atıştırmalıklar ve serinleten içecekler</div>
+                </div>
                 <div class="price-row-container">
                     <div class="price-row"><span class="gram-title">Soğan halkası 4’lü</span><div class="prices-group"><div class="price-badge"><span>50 TL</span></div></div></div>
                     <div class="price-row"><span class="gram-title">Soğan halkası 8’li</span><div class="prices-group"><div class="price-badge"><span>85 TL</span></div></div></div>
