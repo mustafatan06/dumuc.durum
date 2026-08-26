@@ -169,11 +169,19 @@
         .footer p { color: #888; }
         .footer .agency-credit { color: #ff9800; font-weight: 600; letter-spacing: 0.5px; font-size: 0.95rem; text-shadow: 0 0 10px rgba(255,152,0,0.4); }
 
+        /* MOBİL UYUMLULUK VE PERFORMANS AYARLARI */
         @media(max-width: 900px) {
-            .hero h1 { font-size: 2rem; }
-            .hero h1 .big-word { font-size: 2.8rem; }
+            .hero { padding: 140px 15px 80px 15px; }
+            .hero h1 { font-size: 2.1rem; }
+            .hero h1 .big-word { font-size: 2.7rem; }
+            .hero p { font-size: 1rem; }
+            
+            .hero-btns { flex-direction: column; gap: 12px; width: 100%; padding: 0 10px; }
+            .btn-neon-primary, .btn-neon-secondary { width: 100%; text-align: center; padding: 12px 20px; font-size: 1rem; }
+            
             .story-grid, .info-grid { grid-template-columns: 1fr; padding: 25px; }
             .story-img-box { height: 260px; }
+            
             .dropdown-menu {
                 position: fixed;
                 top: 70px;
@@ -186,6 +194,7 @@
                 overflow-y: auto;
                 padding: 15px;
             }
+            .global-ember { opacity: 0.5; }
         }
     </style>
 </head>
