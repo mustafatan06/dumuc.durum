@@ -2,366 +2,449 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paket Menü - d ü mü ç</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Paket Menü & Fiyatlar - d ü mü ç</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f0f0f; color: #fff; line-height: 1.6; overflow-x: hidden; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: #080301; color: #fff; line-height: 1.6; }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,15,15,0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,152,0,0.2); }
-        .nav-container { width: 92%; max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo-img { height: 45px; width: auto; }
-        .back-btn { background: #ff9800; color: #fff !important; padding: 9px 22px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.2s; }
-        .back-btn:hover { background: #e68900; }
+        /* Arka Plan Köz Efekti */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 90%, rgba(255, 69, 0, 0.25) 0%, transparent 80%);
+            pointer-events: none; z-index: 1;
+        }
 
-        .content-section { padding: 140px 0 80px 0; max-width: 1400px; margin: 0 auto; width: 95%; }
-        .section-title { font-size: 2rem; color: #ff9800; border-bottom: 2px solid rgba(255,152,0,0.3); padding-bottom: 10px; margin: 40px 0 25px 0; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+        .global-ember {
+            position: fixed; background: #ff3300; border-radius: 50%; pointer-events: none; z-index: 1;
+            box-shadow: 0 0 10px #ff5722, 0 0 18px #ff9800; animation: globalRiseEmber linear infinite;
+        }
+        @keyframes globalRiseEmber {
+            0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-10vh) scale(1.6); opacity: 0; }
+        }
 
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .menu-card { background: #141414; border: 1px solid rgba(255, 152, 0, 0.25); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .menu-card:hover { transform: translateY(-4px); border-color: rgba(255, 152, 0, 0.7); box-shadow: 0 15px 40px rgba(255, 87, 34, 0.3); }
+        /* Üst Menü */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(10, 5, 3, 0.98); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,87,34,0.3); }
+        .nav-container { width: 92%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 10; }
+        .logo-img { height: 38px; width: auto; display: block; }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        
+        .dropdown { position: relative; }
+        .menu-trigger { color: #fff; font-weight: 600; display: flex; align-items: center; gap: 5px; cursor: pointer; background: none; border: none; font-size: 0.95rem; }
+        
+        .dropdown-menu { display: none; position: absolute; top: 140%; left: 50%; transform: translateX(-50%); background: #1a0a05; min-width: 650px; box-shadow: 0 15px 35px rgba(0,0,0,0.9); border-radius: 12px; padding: 25px; border: 1px solid rgba(255, 87, 34, 0.5); grid-template-columns: repeat(3, 1fr); gap: 20px; z-index: 1100; }
+        .dropdown-menu.show { display: grid; }
+        .menu-category-box h4 { font-size: 1rem; color: #ff9800; margin-bottom: 12px; border-bottom: 2px solid #ff5722; padding-bottom: 6px; }
+        .menu-category-box ul { list-style: none; }
+        .menu-category-box ul li a { display: block; padding: 6px 0; font-size: 0.88rem; color: #ccc; text-decoration: none; }
 
-        .menu-img-container { width: 100%; height: 210px; background: #181818; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255,152,0,0.15); }
-        .menu-img-container img { width: 100%; height: 100%; object-fit: contain; padding: 10px; transition: 0.5s; }
-        .menu-card:hover .menu-img-container img { transform: scale(1.06); }
+        .btn-paket { background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff !important; padding: 8px 18px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .desktop-link { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.95rem; }
 
-        .menu-content { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
-        .menu-item-title { font-size: 1.15rem; font-weight: 700; color: #ffeb3b; margin-bottom: 6px; }
-        .menu-ingredients { font-size: 0.82rem; color: #aaa; margin-bottom: 12px; line-height: 1.35; flex-grow: 1; }
+        /* Ana İçerik */
+        .container { max-width: 1100px; margin: 130px auto 50px auto; width: 92%; position: relative; z-index: 2; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #ff9800; text-decoration: none; font-weight: 600; }
+        
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .big-kurye-animasyon { font-size: 3rem; color: #ff9800; margin-bottom: 8px; animation: kuryeGitGel 3.5s ease-in-out infinite alternate; filter: drop-shadow(0 0 15px rgba(255,152,0,0.6)); }
+        @keyframes kuryeGitGel {
+            0% { transform: translateX(-40px); }
+            100% { transform: translateX(40px); }
+        }
+        .section-header h2 { font-size: 2.3rem; color: #ffeb3b; font-weight: 800; }
+        .section-header p { color: #aaa; font-size: 1rem; margin-top: 5px; }
 
-        .pricing-table { background: rgba(0,0,0,0.5); border-radius: 8px; padding: 10px; font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 12px; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .price-row:last-child { border-bottom: none; }
-        .gram-label { color: #ffa726; font-weight: 600; }
-        .price-val { color: #fff; font-weight: 700; }
-        .combo-info { font-size: 0.78rem; background: rgba(255,152,0,0.15); color: #ffd54f; padding: 5px 8px; border-radius: 6px; margin-bottom: 8px; text-align: center; font-weight: 600; }
+        /* SİPARİŞ VER BUTONU (WHATSAPP YERİNE) */
+        .order-action-box { text-align: center; margin-bottom: 40px; }
+        .btn-siparis-ver {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff;
+            padding: 14px 35px; border-radius: 35px; text-decoration: none;
+            font-weight: 700; font-size: 1.2rem; border: 2px solid #ffeb3b;
+            box-shadow: 0 0 20px rgba(255, 51, 0, 0.7); transition: 0.3s;
+        }
+        .btn-siparis-ver:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 0 30px rgba(255, 51, 0, 1); }
 
-        .whatsapp-order-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #25d366; color: #fff; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.2s; margin-top: auto; }
-        .whatsapp-order-btn:hover { background: #20ba5a; }
+        /* MENÜ TABLO VE KART YAPISI (MOBİL UYUMLU ESNEK) */
+        .menu-category-title { font-size: 1.8rem; color: #ff9800; border-bottom: 2px solid #ff5722; padding-bottom: 8px; margin: 40px 0 20px 0; }
+        
+        .menu-items-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .menu-item-card {
+            background: rgba(18, 8, 4, 0.95); border: 1px solid rgba(255, 87, 34, 0.4);
+            border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+        .item-name { font-size: 1.3rem; color: #ffeb3b; font-weight: 700; margin-bottom: 5px; }
+        .item-desc { color: #ccc; font-size: 0.9rem; margin-bottom: 12px; }
+        .item-extra { color: #ff9800; font-size: 0.85rem; font-style: italic; margin-bottom: 12px; }
 
-        .simple-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .simple-item { background: #141414; border: 1px solid rgba(255, 152, 0, 0.25); padding: 15px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .simple-item span:first-child { font-weight: 600; color: #ddd; }
-        .simple-item span:last-child { font-weight: 700; color: #ffeb3b; font-size: 1.1rem; }
+        /* Fiyat Tablosu Başlıkları ve Satırları */
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .price-table th { background: rgba(255, 87, 34, 0.2); color: #ff9800; font-size: 0.85rem; padding: 8px; text-align: left; border-bottom: 1px solid rgba(255,87,34,0.4); }
+        .price-table td { padding: 8px; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #ddd; }
+        .price-table td:last-child, .price-table th:last-child { text-align: right; }
 
-        .footer { text-align: center; padding: 30px 0; color: #666; font-size: 0.9rem; border-top: 1px solid #222; margin-top: 50px; }
+        .footer { text-align: center; padding: 30px 15px; color: #777; font-size: 0.88rem; border-top: 1px solid rgba(255,87,34,0.2); margin-top: 50px; background: rgba(8, 3, 1, 0.98); }
+        .footer .agency-credit { color: #ff9800; font-weight: 600; margin-top: 5px; font-size: 0.9rem; }
 
         @media(max-width: 900px) {
-            .content-section { width: 98%; padding: 120px 0 60px 0; }
-            .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .menu-img-container { height: 130px; }
-            .menu-content { padding: 10px; }
-            .menu-item-title { font-size: 0.95rem; }
-            .menu-ingredients { font-size: 0.72rem; margin-bottom: 8px; }
-            .pricing-table { font-size: 0.72rem; padding: 6px; }
-            .combo-info { font-size: 0.7rem; padding: 4px; }
-            .whatsapp-order-btn { font-size: 0.78rem; padding: 8px 4px; }
-            .section-title { font-size: 1.4rem; margin: 25px 0 15px 0; }
+            .desktop-link { display: none; }
+            .container { margin-top: 100px; width: 95%; }
+            .section-header h2 { font-size: 1.8rem; }
+            .price-table th, .price-table td { font-size: 0.8rem; padding: 6px 4px; }
+            
+            .dropdown-menu {
+                position: fixed; top: 65px; left: 50%; transform: translateX(-50%);
+                width: 94%; min-width: unset; grid-template-columns: 1fr;
+                max-height: 70vh; overflow-y: auto; padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <div class="global-ember" style="left: 10%; width: 6px; height: 6px; animation-duration: 2.2s;"></div>
+    <div class="global-ember" style="left: 50%; width: 8px; height: 8px; animation-duration: 3s;"></div>
+    <div class="global-ember" style="left: 80%; width: 7px; height: 7px; animation-duration: 2.5s;"></div>
+
     <header class="header">
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
-            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Ana Sayfa</a>
+            <a href="index.html" class="logo-area">
+                <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+
+            <nav class="nav-links">
+                <div class="dropdown">
+                    <button class="menu-trigger" id="menuBtn">Menü <i class="fa-solid fa-angle-down"></i></button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="menu-category-box">
+                            <h4>Dürümlerimiz</h4>
+                            <ul>
+                                <li><a href="urun.html?id=dumuc">Dümüç</a></li>
+                                <li><a href="urun.html?id=hatay">Hatay Dümüç</a></li>
+                                <li><a href="urun.html?id=zurna">Zurna Dümüç</a></li>
+                                <li><a href="urun.html?id=iskenderun">İskenderun Dümüç</a></li>
+                                <li><a href="urun.html?id=ates">Ateş Dümüç</a></li>
+                                <li><a href="urun.html?id=yesillim">Yeşillim Dümüç</a></li>
+                                <li><a href="urun.html?id=chedarli">Chedarlı Dümüç</a></li>
+                                <li><a href="urun.html?id=doritoslu">Doritoslu Tako Dümüç</a></li>
+                                <li><a href="urun.html?id=barbekulu">Barbekülü Dümüç</a></li>
+                                <li><a href="urun.html?id=kasarli">Kaşarlı Dümüç</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu-category-box">
+                            <h4>Köfteler & Burgerler</h4>
+                            <ul>
+                                <li><a href="urun.html?id=kofte">Dümüç Köfte</a></li>
+                                <li><a href="urun.html?id=ates-kofte">Dümüç Ateş Köfte</a></li>
+                                <li><a href="urun.html?id=burger">Dümüç Köfte Burger</a></li>
+                                <li><a href="urun.html?id=double-burger">Dümüç Double Burger</a></li>
+                                <li><a href="urun.html?id=citir-burger">Çıtır Tavuk Burger</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu-category-box">
+                            <h4>Salata & Diğer</h4>
+                            <ul>
+                                <li><a href="urun.html?id=salata">Dümüç Salata</a></li>
+                                <li><a href="urun.html?id=kumru">Kumrumuz</a></li>
+                                <li><a href="urun.html?id=baslangic">Başlangıçlar & Tatlı</a></li>
+                                <li><a href="urun.html?id=icecek">İçecekler</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="hakkimizda.html" class="desktop-link">Hakkımızda</a>
+                <a href="paket-menu.html" class="btn-paket">Paket Servis</a>
+                <a href="tel:03123563000" class="desktop-link"><i class="fa-solid fa-phone"></i> Hemen Ara</a>
+            </nav>
         </div>
     </header>
 
-    <main class="content-section">
-        <h2 class="section-title"><i class="fa-solid fa-fire"></i> Dürümlerimiz</h2>
-        <div class="menu-grid">
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön</a>
+        
+        <div class="section-header">
+            <div class="big-kurye-animasyon">
+                <i class="fa-solid fa-motorcycle"></i>
+            </div>
+            <h2>Paket Servis & Menü Fiyatları</h2>
+            <p>Hızlı teslimat, taptaze lezzetler kapınızda!</p>
+        </div>
+
+        <!-- ŞİMDİ SİPARİŞ VER (ARAMA BUTONU) -->
+        <div class="order-action-box">
+            <a href="tel:03123563000" class="btn-siparis-ver">
+                <i class="fa-solid fa-phone-volume"></i> Şimdi Sipariş Ver (0312 356 30 00)
+            </a>
+        </div>
+
+        <!-- DÜRÜMLER -->
+        <h3 class="menu-category-title">Dürümlerimiz</h3>
+        <div class="menu-items-grid">
             
             <!-- Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="dumuc.jpg" alt="Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, yeşillik, domates, soğan, turşu</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">145₺ | 2'li: 245₺ | 3'lü: 470₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">175₺ | 2'li: 275₺ | 3'lü: 530₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">200₺ | 2'li: 300₺ | 3'lü: 580₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç</div>
+                <div class="item-desc">Tavuk döner, yeşillik, domates, soğan, turşu</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>145 TL</td><td>245 TL</td><td>470 TL</td></tr>
+                    <tr><td>100 gram</td><td>175 TL</td><td>275 TL</td><td>530 TL</td></tr>
+                    <tr><td>125 gram</td><td>200 TL</td><td>300 TL</td><td>580 TL</td></tr>
+                </table>
             </div>
 
             <!-- Hatay Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="hatay.jpg" alt="Hatay Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Hatay Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, patates, turşu, dümüç sos, hatay sos</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">170₺ | 2'li: 270₺ | 3'lü: 520₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">210₺ | 2'li: 310₺ | 3'lü: 600₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">240₺ | 2'li: 340₺ | 3'lü: 660₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Hatay%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Hatay Dümüç</div>
+                <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, hatay sos</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>170 TL</td><td>270 TL</td><td>520 TL</td></tr>
+                    <tr><td>100 gram</td><td>210 TL</td><td>310 TL</td><td>600 TL</td></tr>
+                    <tr><td>125 gram</td><td>240 TL</td><td>340 TL</td><td>660 TL</td></tr>
+                </table>
             </div>
 
             <!-- Zurna Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="zurna.jpg" alt="Zurna Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Zurna Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, patates, turşu, dümüç sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">185₺ | 2'li: 285₺ | 3'lü: 550₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">215₺ | 2'li: 315₺ | 3'lü: 610₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">245₺ | 2'li: 345₺ | 3'lü: 670₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Zurna%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Zurna Dümüç</div>
+                <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>185 TL</td><td>285 TL</td><td>550 TL</td></tr>
+                    <tr><td>100 gram</td><td>215 TL</td><td>315 TL</td><td>610 TL</td></tr>
+                    <tr><td>125 gram</td><td>245 TL</td><td>345 TL</td><td>670 TL</td></tr>
+                </table>
             </div>
 
             <!-- İskenderun Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="iskenderun.jpg" alt="İskenderun Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">İskenderun Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, soğan, domates, maydanoz, dümüç sos</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">190₺ | 2'li: 290₺ | 3'lü: 560₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">225₺ | 2'li: 325₺ | 3'lü: 630₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">250₺ | 2'li: 350₺ | 3'lü: 680₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20İskenderun%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">İskenderun Dümüç</div>
+                <div class="item-desc">Tavuk döner, soğan, domates, maydanoz, dümüç sos</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>190 TL</td><td>290 TL</td><td>560 TL</td></tr>
+                    <tr><td>100 gram</td><td>225 TL</td><td>325 TL</td><td>630 TL</td></tr>
+                    <tr><td>125 gram</td><td>250 TL</td><td>350 TL</td><td>680 TL</td></tr>
+                </table>
             </div>
 
             <!-- Ateş Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="ates-dumuc.jpg" alt="Ateş Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Ateş Dümüç</div>
-                    <div class="menu-ingredients">Tavuk Döner, patates, soğan, turşu, domates, maydanoz, acılı dümüç sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">255₺ | 2'li: 355₺ | 3'lü: 690₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">205₺ | 2'li: 285₺ | 3'lü: 550₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">300₺ | 2'li: 400₺ | 3'lü: 780₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Ateş%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Ateş Dümüç</div>
+                <div class="item-desc">Tavuk Döner, patates, soğan, turşu, domates, maydanoz, acılı dümüç sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>255 TL</td><td>355 TL</td><td>690 TL</td></tr>
+                    <tr><td>100 gram</td><td>205 TL</td><td>285 TL</td><td>550 TL</td></tr>
+                    <tr><td>125 gram</td><td>300 TL</td><td>400 TL</td><td>780 TL</td></tr>
+                </table>
             </div>
 
             <!-- Yeşillim Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="yesillim.jpg" alt="Yeşillim Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Yeşillim Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, aysberg, kırmızı kıvırcık, patates, domates, turşu, dümüç sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">240₺ | 2'li: 340₺ | 3'lü: 660₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">280₺ | 2'li: 380₺ | 3'lü: 740₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">315₺ | 2'li: 415₺ | 3'lü: 815₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Yeşillim%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Yeşillim Dümüç</div>
+                <div class="item-desc">Tavuk döner, aysberg, kırmızı kıvırcık, patates, domates, turşu, dümüç sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>240 TL</td><td>340 TL</td><td>660 TL</td></tr>
+                    <tr><td>100 gram</td><td>280 TL</td><td>380 TL</td><td>740 TL</td></tr>
+                    <tr><td>125 gram</td><td>315 TL</td><td>415 TL</td><td>815 TL</td></tr>
+                </table>
             </div>
 
             <!-- Chedarlı Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="chedarli.jpg" alt="Chedarlı Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Chedarlı Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, patates, yeşillik, turşu, chedar sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">265₺ | 2'li: 365₺ | 3'lü: 710₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">305₺ | 2'li: 405₺ | 3'lü: 790₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">340₺ | 2'li: 440₺ | 3'lü: 860₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Chedarlı%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Chedarlı Dümüç</div>
+                <div class="item-desc">Tavuk döner, patates, yeşillik, turşu, cheddar sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>265 TL</td><td>365 TL</td><td>710 TL</td></tr>
+                    <tr><td>100 gram</td><td>305 TL</td><td>405 TL</td><td>790 TL</td></tr>
+                    <tr><td>125 gram</td><td>340 TL</td><td>440 TL</td><td>860 TL</td></tr>
+                </table>
             </div>
 
             <!-- Doritoslu Tako Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="doritoslu.jpg" alt="Doritoslu Tako Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Doritoslu Tako Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, doritos, chedar sos, patates, turşu, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">270₺ | 2'li: 370₺ | 3'lü: 720₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">315₺ | 2'li: 415₺ | 3'lü: 810₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">350₺ | 2'li: 450₺ | 3'lü: 880₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Doritoslu%20Tako%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Doritoslu Tako Dümüç</div>
+                <div class="item-desc">Tavuk döner, doritos, chedar sos, patates, turşu, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>270 TL</td><td>370 TL</td><td>720 TL</td></tr>
+                    <tr><td>100 gram</td><td>315 TL</td><td>415 TL</td><td>810 TL</td></tr>
+                    <tr><td>125 gram</td><td>350 TL</td><td>450 TL</td><td>880 TL</td></tr>
+                </table>
             </div>
 
             <!-- Barbekülü Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="barbekulu.jpg" alt="Barbekülü Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Barbekülü Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, patates, turşu, barbekü sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">175₺ | 2'li: 255₺ | 3'lü: 490₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">255₺ | 2'li: 355₺ | 3'lü: 690₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">335₺ | 2'li: 435₺ | 3'lü: 850₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Barbekülü%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Barbekülü Dümüç</div>
+                <div class="item-desc">Tavuk döner, patates, turşu, barbekü sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>175 TL</td><td>255 TL</td><td>490 TL</td></tr>
+                    <tr><td>100 gram</td><td>255 TL</td><td>355 TL</td><td>690 TL</td></tr>
+                    <tr><td>125 gram</td><td>335 TL</td><td>435 TL</td><td>850 TL</td></tr>
+                </table>
             </div>
 
             <!-- Kaşarlı Dümüç -->
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="kasarli.jpg" alt="Kaşarlı Dümüç" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Kaşarlı Dümüç</div>
-                    <div class="menu-ingredients">Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">75g:</span><span class="price-val">265₺ | 2'li: 365₺ | 3'lü: 710₺</span></div>
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">305₺ | 2'li: 405₺ | 3'lü: 790₺</span></div>
-                        <div class="price-row"><span class="gram-label">125g:</span><span class="price-val">340₺ | 2'li: 440₺ | 3'lü: 860₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Kaşarlı%20Dümüç%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Kaşarlı Dümüç</div>
+                <div class="item-desc">Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>75 gram</td><td>265 TL</td><td>365 TL</td><td>710 TL</td></tr>
+                    <tr><td>100 gram</td><td>305 TL</td><td>405 TL</td><td>560 TL</td></tr>
+                    <tr><td>125 gram</td><td>340 TL</td><td>440 TL</td><td>860 TL</td></tr>
+                </table>
             </div>
+
         </div>
 
         <!-- KÖFTELER -->
-        <h2 class="section-title"><i class="fa-solid fa-fire"></i> Köfteler</h2>
-        <div class="menu-grid">
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="kofte.jpg" alt="Dümüç Köfte" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç Köfte</div>
-                    <div class="menu-ingredients">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">365₺ | 2'li: 465₺ | 3'lü: 910₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Dümüç%20Köfte%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+        <h3 class="menu-category-title">Köfteler</h3>
+        <div class="menu-items-grid">
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç Köfte</div>
+                <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>100 gram</td><td>365 TL</td><td>465 TL</td><td>910 TL</td></tr>
+                </table>
             </div>
 
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="dumuc-ates-kofte.jpg" alt="Dümüç Ateş Köfte" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç Ateş Köfte</div>
-                    <div class="menu-ingredients">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç ateş sos, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">365₺ | 2'li: 465₺ | 3'lü: 910₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Dümüç%20Ateş%20Köfte%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç Ateş Köfte</div>
+                <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç ateş sos, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>100 gram</td><td>365 TL</td><td>465 TL</td><td>910 TL</td></tr>
+                </table>
             </div>
         </div>
 
         <!-- BURGERLER -->
-        <h2 class="section-title"><i class="fa-solid fa-burger"></i> Burgerler</h2>
-        <div class="menu-grid">
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="burger.jpg" alt="Köfte Burger" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç Köfte Burger</div>
-                    <div class="menu-ingredients">Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +80 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">330₺ | 2'li: 430₺ | 3'lü: 840₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Dümüç%20Köfte%20Burger%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+        <h3 class="menu-category-title">Burgerler</h3>
+        <div class="menu-items-grid">
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç Köfte Burger</div>
+                <div class="item-desc">Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 80 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>100 gram</td><td>330 TL</td><td>430 TL</td><td>840 TL</td></tr>
+                </table>
             </div>
 
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="double-burger.jpg" alt="Double Burger" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç Double Burger</div>
-                    <div class="menu-ingredients">2 Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">200g:</span><span class="price-val">460₺ | 2'li: 560₺ | 3'lü: 1100₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Dümüç%20Double%20Burger%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç Double Burger</div>
+                <div class="item-desc">2 Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>200 gram</td><td>460 TL</td><td>560 TL</td><td>1100 TL</td></tr>
+                </table>
             </div>
 
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="citir-tavuk-burger.jpg" alt="Çıtır Tavuk Burger" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç Çıtır Tavuk Burger</div>
-                    <div class="menu-ingredients">Çıtır tavuklar, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">100g:</span><span class="price-val">220₺ | 2'li: 320₺ | 3'lü: 620₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Çıtır%20Tavuk%20Burger%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç Çıtır Tavuk Burger</div>
+                <div class="item-desc">Çıtır tavuklar, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>100 gram</td><td>220 TL</td><td>320 TL</td><td>620 TL</td></tr>
+                </table>
             </div>
         </div>
 
-        <!-- SALATA & KUMRU -->
-        <h2 class="section-title"><i class="fa-solid fa-bowl-food"></i> Salata & Kumru</h2>
-        <div class="menu-grid">
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="salata.jpg" alt="Salata" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Dümüç Salata</div>
-                    <div class="menu-ingredients">Aysberg, kırmızı kıvırcık, havuç, mısır, dümüç sos, çıtır tavuklar</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">120g:</span><span class="price-val">280 TL</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Dümüç%20Salata%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+        <!-- SALATALAR & KUMRULAR & DİĞER -->
+        <h3 class="menu-category-title">Salatalar & Kumrular</h3>
+        <div class="menu-items-grid">
+            <div class="menu-item-card">
+                <div class="item-name">Dümüç Salata</div>
+                <div class="item-desc">Aysberg, kırmızı kıvırcık, havuç, mısır, dümüç sos, çıtır tavuklar</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Fiyat</th></tr>
+                    <tr><td>120 gram</td><td>280 TL</td></tr>
+                </table>
             </div>
 
-            <div class="menu-card">
-                <div class="menu-img-container"><img src="kumru.jpg" alt="Kumru" onerror="this.src='logo.png'"></div>
-                <div class="menu-content">
-                    <div class="menu-item-title">Kumrumuz</div>
-                    <div class="menu-ingredients">Sosis, sucuk, kaşar, turşu, ketçap, mayonez</div>
-                    <div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: +100 TL</div>
-                    <div class="pricing-table">
-                        <div class="price-row"><span class="gram-label">200g:</span><span class="price-val">185₺ | 2'li: 285₺ | 3'lü: 550₺</span></div>
-                    </div>
-                    <a href="https://wa.me/905000000000?text=Merhaba,%20Kumrumuz%20sipariş%20vermek%20istiyorum." target="_blank" class="whatsapp-order-btn"><i class="fa-brands fa-whatsapp"></i> Sipariş Ver</a>
-                </div>
+            <div class="menu-item-card">
+                <div class="item-name">Kumrum</div>
+                <div class="item-desc">Sosis, sucuk, kaşar, turşu, ketçap, mayonez</div>
+                <div class="item-extra">(Patates + içecek) : 100 TL</div>
+                <table class="price-table">
+                    <tr><th>Gramaj</th><th>Tek-Menü</th><th>2'li Dost Menü</th><th>3'lü Kanka Menü (lt)</th></tr>
+                    <tr><td>200 gram</td><td>185 TL</td><td>285 TL</td><td>550 TL</td></tr>
+                </table>
             </div>
         </div>
 
-        <!-- BAŞLANGIÇLAR -->
-        <h2 class="section-title"><i class="fa-solid fa-utensils"></i> Başlangıçlar & Tatlılar</h2>
-        <div class="simple-list">
-            <div class="simple-item"><span>Soğan Halkası (4'lü)</span><span>50 TL</span></div>
-            <div class="simple-item"><span>Soğan Halkası (8'li)</span><span>85 TL</span></div>
-            <div class="simple-item"><span>Baharatlı Patates</span><span>90 TL</span></div>
-            <div class="simple-item"><span>Çıtır Tavuk (4'lü)</span><span>60 TL</span></div>
-            <div class="simple-item"><span>Çıtır Tavuk (8'li)</span><span>100 TL</span></div>
-            <div class="simple-item"><span>Dümüç Başlangıç Tabağı</span><span>200 TL</span></div>
-            <div class="simple-item"><span>Fırında Sütlaç</span><span>100 TL</span></div>
+        <!-- BAŞLANGIÇLAR & TATLILAR & İÇECEKLER -->
+        <h3 class="menu-category-title">Başlangıçlar, Tatlılar & İçecekler</h3>
+        <div class="menu-items-grid">
+            <div class="menu-item-card">
+                <div class="item-name">Atıştırmalıklar & İçecekler</div>
+                <table class="price-table">
+                    <tr><td>Soğan halkası 4’lü</td><td>50 TL</td></tr>
+                    <tr><td>Soğan halkası 8’li</td><td>85 TL</td></tr>
+                    <tr><td>Baharatlı Patates</td><td>90 TL</td></tr>
+                    <tr><td>Çıtır tavuk 4’lü</td><td>60 TL</td></tr>
+                    <tr><td>Çıtır tavuk 8’li</td><td>100 TL</td></tr>
+                    <tr><td>Dümüç başlangıç (Patates, 4'lü çıtır tavuk küpleri, 4'lü soğan halkası)</td><td>200 TL</td></tr>
+                    <tr><td>Fırında Sütlaç</td><td>100 TL</td></tr>
+                    <tr><td>Pepsi / Yedigün / Sevenup / Limonata / Tropicana</td><td>90 TL</td></tr>
+                    <tr><td>Ayran (Küçük: 45 TL / Büyük: 70 TL)</td><td>45 TL - 70 TL</td></tr>
+                    <tr><td>Şalgam (acılı-acısız)</td><td>65 TL</td></tr>
+                    <tr><td>Soda</td><td>50 TL</td></tr>
+                    <tr><td>Su</td><td>30 TL</td></tr>
+                </table>
+            </div>
         </div>
 
-        <!-- İÇECEKLER -->
-        <h2 class="section-title"><i class="fa-solid fa-cup-water"></i> İçecekler</h2>
-        <div class="simple-list">
-            <div class="simple-item"><span>Pepsi / Yedigün / Sevenup / Tropicana</span><span>90 TL</span></div>
-            <div class="simple-item"><span>Limonata</span><span>90 TL</span></div>
-            <div class="simple-item"><span>Şalgam (Acılı / Acısız)</span><span>65 TL</span></div>
-            <div class="simple-item"><span>Ayran (Küçük / Büyük)</span><span>45 TL / 70 TL</span></div>
-            <div class="simple-item"><span>Soda / Su</span><span>50 TL / 30 TL</span></div>
-        </div>
-    </main>
+    </div>
 
     <footer class="footer">
-        <p>&copy; 2026 d ü mü ç - Tüm Hakları Saklıdır.</p>
+        <p>&copy; 2026 Dümüç Döner - Tüm Hakları Saklıdır.</p>
+        <div class="agency-credit">TAN MEDYA TASARIM Tarafından Kurulmuştur.</div>
     </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        window.addEventListener('click', function() {
+            dropdownMenu.classList.remove('show');
+        });
+    </script>
 </body>
 </html>
