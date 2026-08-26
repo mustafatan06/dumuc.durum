@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dümüç Hikayemiz - d ü mü ç</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f0f0f; color: #fff; line-height: 1.6; }
+        
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,152,0,0.2); }
+        .nav-container { width: 92%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 45px; width: auto; display: block; }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        
+        .dropdown { position: relative; }
+        .menu-trigger { text-decoration: none; color: #fff; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; background: none; border: none; font-size: 1rem; transition: color 0.3s; }
+        .menu-trigger:hover { color: #ff9800; }
+
+        .dropdown-menu { display: none; position: absolute; top: 140%; left: 50%; transform: translateX(-50%); background: #1a1a1a; min-width: 680px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px; padding: 25px; border: 1px solid rgba(255, 152, 0, 0.3); grid-template-columns: repeat(3, 1fr); gap: 20px; z-index: 1100; }
+        .dropdown-menu.show { display: grid; }
+
+        .menu-category-box h4 { font-size: 1.05rem; color: #ff9800; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #ff9800; }
+        .menu-category-box ul { list-style: none; }
+        .menu-category-box ul li a { display: block; padding: 6px 0; font-size: 0.9rem; color: #ccc; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s, padding-left 0.2s; }
+        .menu-category-box ul li a:hover { color: #ff9800; padding-left: 5px; }
+
+        .btn-paket { background: linear-gradient(135deg, #ff9800, #ff5722); color: #fff !important; padding: 9px 22px; border-radius: 30px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); }
+        .nav-links > a:not(.btn-paket) { text-decoration: none; color: #fff; font-weight: 600; transition: color 0.3s; }
+        .nav-links > a:not(.btn-paket):hover { color: #ff9800; }
+
+        .container { max-width: 1050px; margin: 140px auto 60px auto; width: 92%; background: #141414; border: 1px solid rgba(255,152,0,0.25); border-radius: 16px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .back-link { display: inline-block; margin-bottom: 25px; color: #ff9800; text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
+
+        /* İKİ SÜTUNLU YAPI */
+        .story-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; align-items: start; }
+
+        .story-left { display: flex; flex-direction: column; gap: 20px; }
+        .story-img-box { width: 100%; height: 380px; background: #1c1c1c; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,152,0,0.2); }
+        .story-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 20px; }
+        
+        .story-right { display: flex; flex-direction: column; gap: 20px; }
+        .story-title { font-size: 2.2rem; color: #ffeb3b; font-weight: 700; line-height: 1.2; }
+        
+        /* ÇERÇEVELİ HİKAYE ALANI */
+        .story-text-box { border: 1px solid rgba(255, 152, 0, 0.3); background: rgba(255, 152, 0, 0.03); border-radius: 10px; padding: 25px; }
+        .story-text { font-size: 0.98rem; color: #ccc; line-height: 1.8; white-space: pre-line; }
+
+        .footer { text-align: center; padding: 30px 0; color: #666; font-size: 0.9rem; border-top: 1px solid #222; margin-top: 50px; display: flex; flex-direction: column; gap: 6px; }
+        .footer p { color: #777; }
+        .footer .agency-credit { color: #ff9800; font-weight: 600; letter-spacing: 0.5px; font-size: 0.95rem; }
+
+        @media(max-width: 900px) {
+            .story-layout { grid-template-columns: 1fr; gap: 20px; }
+            .container { padding: 20px; }
+            .story-img-box { height: 260px; }
+            .story-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.png" alt="Logo" class="logo-img">
+            </a>
+
+            <nav class="nav-links">
+                <div class="dropdown">
+                    <button class="menu-trigger" id="menuBtn">Menü <i class="fa-solid fa-angle-down"></i></button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="menu-category-box">
+                            <h4>Dürümlerimiz</h4>
+                            <ul>
+                                <li><a href="urun.html?id=dumuc">Dümüç</a></li>
+                                <li><a href="urun.html?id=hatay">Hatay Dümüç</a></li>
+                                <li><a href="urun.html?id=zurna">Zurna Dümüç</a></li>
+                                <li><a href="urun.html?id=iskenderun">İskenderun Dümüç</a></li>
+                                <li><a href="urun.html?id=ates">Ateş Dümüç</a></li>
+                                <li><a href="urun.html?id=yesillim">Yeşillim Dümüç</a></li>
+                                <li><a href="urun.html?id=chedarli">Chedarlı Dümüç</a></li>
+                                <li><a href="urun.html?id=doritoslu">Doritoslu Tako Dümüç</a></li>
+                                <li><a href="urun.html?id=barbekulu">Barbekülü Dümüç</a></li>
+                                <li><a href="urun.html?id=kasarli">Kaşarlı Dümüç</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu-category-box">
+                            <h4>Köfteler & Burgerler</h4>
+                            <ul>
+                                <li><a href="urun.html?id=kofte">Dümüç Köfte</a></li>
+                                <li><a href="urun.html?id=ates-kofte">Dümüç Ateş Köfte</a></li>
+                                <li><a href="urun.html?id=burger">Dümüç Köfte Burger</a></li>
+                                <li><a href="urun.html?id=double-burger">Dümüç Double Burger</a></li>
+                                <li><a href="urun.html?id=citir-burger">Çıtır Tavuk Burger</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu-category-box">
+                            <h4>Salata & Diğer</h4>
+                            <ul>
+                                <li><a href="urun.html?id=salata">Dümüç Salata</a></li>
+                                <li><a href="urun.html?id=kumru">Kumrumuz</a></li>
+                                <li><a href="urun.html?id=baslangic">Başlangıçlar & Tatlı</a></li>
+                                <li><a href="urun.html?id=icecek">İçecekler</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="hakkimizda.html" class="nav-link" style="color: #ff9800;">Hakkımızda</a>
+                <a href="paket-menu.html" class="btn-paket">Paket Servis</a>
+                <a href="tel:03123563000" class="nav-link"><i class="fa-solid fa-phone"></i> Hemen Ara</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön</a>
+        <div class="story-layout">
+            <div class="story-left">
+                <div class="story-img-box">
+                    <img src="logo.png" alt="d ü mü ç" onerror="this.src='logo.png'">
+                </div>
+            </div>
+            <div class="story-right">
+                <div class="story-title">Dümüç Hikayemiz</div>
+                <div class="story-text-box">
+                    <div class="story-text">Bir kelime Anadolu’dan, bir lezzet bizden…
+
+Bir kelime, bir sofra, bir Anadolu hikâyesi…
+Bazı lezzetlerin bir tarifi vardır. Bazılarının ise bir hikâyesi…
+Yani Dümüç, bugün bizim yeniden keşfettiğimiz bir isim değil.
+Anadolu’nun sofrasından, Anadolu’nun dilinden bize kadar gelmiş bir kelime.
+Anadolu’da hayat, yüzyıllardır toprakla, emekle ve paylaşmakla şekillendi.
+Gün doğmadan yola çıkan çobanların, tarlaya giden emekçilerin, uzun bir yolculuğa çıkanların yanında çoğu zaman sade ama doyurucu bir yiyecek olurdu. Köy ekmeğinin arasına bazen peynir bazen de tereyağı ile peynirin birleşerek sarılarak oluşturulan lezzettir.
+Dümüç’ün ruhu da buradan geliyor.
+
+Biz bu eski kelimeyi alıp geçmişte bırakmak istemedik.
+Tam tersine, Anadolu’dan gelen bu fikri bugünün damak tadıyla yeniden yorumlamak istedik.
+Dümüç’te geçmişin o samimi sofrasını korurken, lezzeti bugünün damak tadıyla yeniden yorumluyoruz. Anadolu’nun güçlü mutfak kültüründen ilham alıyor, kaliteli ürünleri kullanarak doğru pişirmeyi yapıp hazırladığımız özel Dümüç sosumuzla enfes lezzetleri bir araya getirererek Dümüç’ü Anadolu’nun sade dürüm anlayışının modern hali olarak tasarladık.
+
+Dümüç; emeğin, yolun, paylaşmanın ve sofranın lezzetli hâli.
+Bir zamanlar Anadolu’nun kendi içinde yaşayan bir kelime olan Dümüç, şimdi yeniden yola çıkıyor.
+Anadolu’dan kopup gelen lezzet, bugün yeniden sarılıyor.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 d ü mü ç - Tüm Hakları Saklıdır.</p>
+        <div class="agency-credit">TAN MEDYA TASARIM Tarafından Kurulmuştur.</div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        window.addEventListener('click', function() {
+            dropdownMenu.classList.remove('show');
+        });
+    </script>
+</body>
+</html>

@@ -9,110 +9,302 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0f0f0f; color: #fff; line-height: 1.6; }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,15,15,0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,152,0,0.2); }
-        .nav-container { width: 95%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo-img { height: 45px; width: auto; }
-        .back-btn { text-decoration: none; color: #fff; font-weight: 700; background: #222; padding: 8px 18px; border-radius: 20px; transition: 0.3s; border: 1px solid rgba(255,152,0,0.3); }
-        .back-btn:hover { background: #ff9800; color: #fff; }
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,15,15,0.98); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,152,0,0.2); }
+        .nav-container { width: 92%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 45px; width: auto; display: block; }
         
-        .product-detail-section { padding: 150px 0 80px 0; min-height: 100vh; display: flex; align-items: center; }
-        .product-container { width: 95%; max-width: 1100px; margin: 0 auto; background: #141414; padding: 40px; border-radius: 14px; border: 1px solid rgba(255,152,0,0.2); display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
         
-        /* ÇERÇEVESİZ VE ARKA PLANSIZ GÖRSEL ALANI (Ateş efekti kaldırıldı) */
-        .product-image-box { width: 100%; height: 320px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; position: relative; overflow: hidden; }
-        .product-image-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
-        .card-img-placeholder { color: #555; font-size: 0.85rem; border: 2px dashed #333; width: 100%; height: 100%; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+        .dropdown { position: relative; }
+        .menu-trigger { text-decoration: none; color: #fff; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; background: none; border: none; font-size: 1rem; transition: color 0.3s; }
+        .menu-trigger:hover { color: #ff9800; }
 
-        .product-info h1 { font-size: 2.5rem; color: #fff; margin-bottom: 10px; font-weight: 800; }
-        .product-ingredients { color: #aaa; font-size: 0.95rem; margin-bottom: 20px; background: #1f140a; padding: 10px 15px; border-left: 3px solid #ff9800; border-radius: 0 6px 6px 0; border: 1px solid rgba(255,152,0,0.1); }
+        .dropdown-menu { display: none; position: absolute; top: 140%; left: 50%; transform: translateX(-50%); background: #1a1a1a; min-width: 680px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px; padding: 25px; border: 1px solid rgba(255, 152, 0, 0.3); grid-template-columns: repeat(3, 1fr); gap: 20px; z-index: 1100; }
+        .dropdown-menu.show { display: grid; }
+
+        .menu-category-box h4 { font-size: 1.05rem; color: #ff9800; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #ff9800; }
+        .menu-category-box ul { list-style: none; }
+        .menu-category-box ul li a { display: block; padding: 6px 0; font-size: 0.9rem; color: #ccc; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s, padding-left 0.2s; }
+        .menu-category-box ul li a:hover { color: #ff9800; padding-left: 5px; }
+
+        .btn-paket { background: linear-gradient(135deg, #ff9800, #ff5722); color: #fff !important; padding: 9px 22px; border-radius: 30px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); }
+        .nav-links > a:not(.btn-paket) { text-decoration: none; color: #fff; font-weight: 600; transition: color 0.3s; }
+        .nav-links > a:not(.btn-paket):hover { color: #ff9800; }
+
+        .container { max-width: 1100px; margin: 140px auto 60px auto; width: 92%; background: #141414; border: 1px solid rgba(255,152,0,0.25); border-radius: 16px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 20px; }
-        .price-table { width: 100%; border-collapse: collapse; background: #1a1a1a; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .price-table th, .price-table td { padding: 12px 14px; text-align: left; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .price-table th { background-color: #ff9800; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
-        .highlight-price { color: #ff9800; font-weight: bold; }
+        .back-link { display: inline-block; margin-bottom: 25px; color: #ff9800; text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
 
-        .note-text { font-size: 0.85rem; color: #aaa; margin-bottom: 20px; display: flex; align-items: center; gap: 6px; }
-        .order-now-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #ff9800, #ff5722); color: #fff; padding: 12px 28px; border-radius: 30px; text-decoration: none; font-size: 1rem; font-weight: bold; box-shadow: 0 4px 15px rgba(255,152,0,0.3); transition: 0.2s; }
-        .order-now-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,152,0,0.5); }
+        .product-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
 
-        @media(max-width: 900px) { .product-container { grid-template-columns: 1fr; padding: 25px; } }
+        .product-left { display: flex; flex-direction: column; gap: 20px; }
+        .product-img-box { width: 100%; height: 320px; background: #1c1c1c; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,152,0,0.2); }
+        .product-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; }
+        
+        .product-ingredients-box { border: 1px solid rgba(255, 152, 0, 0.3); background: rgba(255, 152, 0, 0.03); border-radius: 10px; padding: 15px; }
+        .ingredients-title { font-size: 0.85rem; text-transform: uppercase; color: #ff9800; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.5px; }
+        .product-ingredients { font-size: 0.95rem; color: #ccc; line-height: 1.4; }
+
+        .product-right { display: flex; flex-direction: column; gap: 20px; }
+        .product-title { font-size: 2.2rem; color: #ffeb3b; font-weight: 700; line-height: 1.2; }
+        
+        .combo-info { font-size: 1rem; background: rgba(255,152,0,0.15); color: #ffd54f; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; border: 1px solid rgba(255,152,0,0.3); }
+        
+        .pricing-table { background: rgba(0,0,0,0.5); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,152,0,0.2); }
+        .price-title { color: #ffa726; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        
+        .price-cards-container { display: flex; flex-direction: column; gap: 12px; }
+        .price-row-card { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .price-row-card:hover { border-color: rgba(255,152,0,0.4); background: #222; }
+        
+        .gram-badge { background: rgba(255,152,0,0.15); color: #ff9800; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.95rem; flex-shrink: 0; }
+        .prices-group { display: flex; gap: 14px; font-size: 0.88rem; font-weight: 600; color: #fff; flex-wrap: wrap; justify-content: flex-end; }
+        .price-item span { color: #888; font-size: 0.7rem; display: block; text-align: center; margin-bottom: 2px; }
+        .price-item { text-align: center; background: rgba(255,255,255,0.03); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); }
+        .price-item.highlight { color: #ffeb3b; border-color: rgba(255,152,0,0.2); }
+
+        .footer { text-align: center; padding: 30px 0; color: #666; font-size: 0.9rem; border-top: 1px solid #222; margin-top: 50px; }
+
+        @media(max-width: 900px) {
+            .product-layout { grid-template-columns: 1fr; gap: 20px; }
+            .container { padding: 20px; }
+            .product-img-box { height: 250px; }
+            .product-title { font-size: 1.8rem; }
+            .price-row-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .prices-group { justify-content: flex-start; width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        }
     </style>
 </head>
 <body>
 
     <header class="header">
         <div class="nav-container">
-            <a href="paket-menu.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
-            <a href="paket-menu.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Paket Menüye Dön</a>
+            <a href="index.html" class="logo-area">
+                <img src="logo.png" alt="Logo" class="logo-img">
+            </a>
+
+            <nav class="nav-links">
+                <div class="dropdown">
+                    <button class="menu-trigger" id="menuBtn">Menü <i class="fa-solid fa-angle-down"></i></button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="menu-category-box">
+                            <h4>Dürümlerimiz</h4>
+                            <ul>
+                                <li><a href="urun.html?id=dumuc">Dümüç</a></li>
+                                <li><a href="urun.html?id=hatay">Hatay Dümüç</a></li>
+                                <li><a href="urun.html?id=zurna">Zurna Dümüç</a></li>
+                                <li><a href="urun.html?id=iskenderun">İskenderun Dümüç</a></li>
+                                <li><a href="urun.html?id=ates">Ateş Dümüç</a></li>
+                                <li><a href="urun.html?id=yesillim">Yeşillim Dümüç</a></li>
+                                <li><a href="urun.html?id=chedarli">Chedarlı Dümüç</a></li>
+                                <li><a href="urun.html?id=doritoslu">Doritoslu Tako Dümüç</a></li>
+                                <li><a href="urun.html?id=barbekulu">Barbekülü Dümüç</a></li>
+                                <li><a href="urun.html?id=kasarli">Kaşarlı Dümüç</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu-category-box">
+                            <h4>Köfteler & Burgerler</h4>
+                            <ul>
+                                <li><a href="urun.html?id=kofte">Dümüç Köfte</a></li>
+                                <li><a href="urun.html?id=ates-kofte">Dümüç Ateş Köfte</a></li>
+                                <li><a href="urun.html?id=burger">Dümüç Köfte Burger</a></li>
+                                <li><a href="urun.html?id=double-burger">Dümüç Double Burger</a></li>
+                                <li><a href="urun.html?id=citir-burger">Çıtır Tavuk Burger</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu-category-box">
+                            <h4>Salata & Diğer</h4>
+                            <ul>
+                                <li><a href="urun.html?id=salata">Dümüç Salata</a></li>
+                                <li><a href="urun.html?id=kumru">Kumrumuz</a></li>
+                                <li><a href="urun.html?id=baslangic">Başlangıçlar & Tatlı</a></li>
+                                <li><a href="urun.html?id=icecek">İçecekler</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="paket-menu.html" class="btn-paket">Paket Servis</a>
+                <a href="tel:03123563000" class="nav-link"><i class="fa-solid fa-phone"></i> Hemen Ara</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="product-detail-section">
-            <div class="product-container">
-                <div class="product-image-box" id="imgBox">
-                    <div class="card-img-placeholder"><i class="fa-solid fa-camera"><span>Görsel Yok</span></i></div>
-                </div>
-                
-                <div class="product-info">
-                    <h1 id="prodName">Yükleniyor...</h1>
-                    <p class="product-ingredients" id="prodIng"></p>
-                    
-                    <div class="table-responsive">
-                        <table class="price-table">
-                            <thead>
-                                <tr>
-                                    <th>Seçenek / Gram</th>
-                                    <th>Normal</th>
-                                    <th>2'li Dost Menü</th>
-                                    <th>3'lü Kanka Menü</th>
-                                    <th>4'lü Menü</th>
-                                </tr>
-                            </thead>
-                            <tbody id="priceTableBody"></tbody>
-                        </table>
-                    </div>
+    <div class="container" id="productContainer">
+        <!-- İçerik dinamik olarak yüklenecek -->
+    </div>
 
-                    <p class="note-text"><i class="fa-solid fa-circle-info" style="color: #ff9800;"></i> Patates + İçecek seçeneği dahildir[cite: 1, 2, 3].</p>
-                    <a href="tel:03123563000" class="order-now-btn"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver (Ara)</a>
-                </div>
-            </div>
-        </section>
-    </main>
+    <footer class="footer">
+        <p>&copy; 2026 d ü mü ç - Tüm Hakları Saklıdır.</p>
+    </footer>
 
-    <script src="menu-data.js"></script>
     <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        window.addEventListener('click', function() {
+            dropdownMenu.classList.remove('show');
+        });
+
+        const products = {
+            "dumuc": { name: "Dümüç", img: "dumuc.jpg", ing: "Tavuk döner, yeşillik, domates, soğan, turşu", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "100₺", p2: "180₺", p3: "340₺", kanka: "500₺" },
+                { gram: "100g", p1: "125₺", p2: "205₺", p3: "390₺", kanka: "575₺" },
+                { gram: "125g", p1: "145₺", p2: "225₺", p3: "430₺", kanka: "635₺" }
+            ]},
+            "hatay": { name: "Hatay Dümüç", img: "hatay.jpg", ing: "Tavuk döner, patates, turşu, dümüç sos, hatay sos", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "120₺", p2: "200₺", p3: "380₺", kanka: "560₺" },
+                { gram: "100g", p1: "145₺", p2: "225₺", p3: "430₺", kanka: "635₺" },
+                { gram: "125g", p1: "165₺", p2: "245₺", p3: "470₺", kanka: "695₺" }
+            ]},
+            "zurna": { name: "Zurna Dümüç", img: "zurna.jpg", ing: "Tavuk döner, patates, turşu, dümüç sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "125₺", p2: "205₺", p3: "395₺", kanka: "575₺" },
+                { gram: "100g", p1: "150₺", p2: "230₺", p3: "440₺", kanka: "650₺" },
+                { gram: "125g", p1: "170₺", p2: "250₺", p3: "480₺", kanka: "710₺" }
+            ]},
+            "iskenderun": { name: "İskenderun Dümüç", img: "iskenderun.jpg", ing: "Tavuk döner, soğan, domates, maydanoz, dümüç sos", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "130₺", p2: "210₺", p3: "400₺", kanka: "590₺" },
+                { gram: "100g", p1: "155₺", p2: "235₺", p3: "450₺", kanka: "665₺" },
+                { gram: "125g", p1: "175₺", p2: "255₺", p3: "490₺", kanka: "725₺" }
+            ]},
+            "ates": { name: "Ateş Dümüç", img: "ates-dumuc.jpg", ing: "Tavuk Döner, patates, soğan, turşu, domates, maydanoz, acılı dümüç sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "175₺", p2: "255₺", p3: "490₺", kanka: "725₺" },
+                { gram: "100g", p1: "205₺", p2: "285₺", p3: "550₺", kanka: "815₺" },
+                { gram: "125g", p1: "230₺", p2: "310₺", p3: "600₺", kanka: "890₺" }
+            ]},
+            "yesillim": { name: "Yeşillim Dümüç", img: "yesillim.jpg", ing: "Tavuk döner, aysberg, kırmızı kıvırcık, patates, domates, turşu, dümüç sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "160₺", p2: "240₺", p3: "460₺", kanka: "680₺" },
+                { gram: "100g", p1: "190₺", p2: "270₺", p3: "520₺", kanka: "770₺" },
+                { gram: "125g", p1: "215₺", p2: "295₺", p3: "570₺", kanka: "845₺" }
+            ]},
+            "chedarli": { name: "Chedarlı Dümüç", img: "chedarli.jpg", ing: "Tavuk döner, patates, yeşillik, turşu, chedar sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "180₺", p2: "260₺", p3: "500₺", kanka: "740₺" },
+                { gram: "100g", p1: "210₺", p2: "290₺", p3: "560₺", kanka: "830₺" },
+                { gram: "125g", p1: "235₺", p2: "315₺", p3: "610₺", kanka: "900₺" }
+            ]},
+            "doritoslu": { name: "Doritoslu Tako Dümüç", img: "doritoslu.jpg", ing: "Tavuk döner, doritos, chedar sos, patates, turşu, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "185₺", p2: "265₺", p3: "500₺", kanka: "735₺" },
+                { gram: "100g", p1: "215₺", p2: "295₺", p3: "560₺", kanka: "825₺" },
+                { gram: "125g", p1: "240₺", p2: "320₺", p3: "610₺", kanka: "900₺" }
+            ]},
+            "barbekulu": { name: "Barbekülü Dümüç", img: "barbekulu.jpg", ing: "Tavuk döner, patates, turşu, barbekü sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "175₺", p2: "255₺", p3: "490₺", kanka: "725₺" },
+                { gram: "100g", p1: "205₺", p2: "285₺", p3: "550₺", kanka: "815₺" },
+                { gram: "125g", p1: "230₺", p2: "310₺", p3: "600₺", kanka: "890₺" }
+            ]},
+            "kasarli": { name: "Kaşarlı Dümüç", img: "kasarli.jpg", ing: "Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "75g", p1: "180₺", p2: "260₺", p3: "500₺", kanka: "740₺" },
+                { gram: "100g", p1: "210₺", p2: "290₺", p3: "560₺", kanka: "830₺" },
+                { gram: "125g", p1: "235₺", p2: "315₺", p3: "610₺", kanka: "900₺" }
+            ]},
+            "kofte": { name: "Dümüç Köfte", img: "kofte.jpg", ing: "Köfte, patates, soğan, domates, maydanoz, turşu, dümüç sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "100g", p1: "250₺", p2: "330₺", p3: "640₺", kanka: "950₺" }
+            ]},
+            "ates-kofte": { name: "Dümüç Ateş Köfte", img: "dumuc-ates-kofte.jpg", ing: "Köfte, patates, soğan, domates, maydanoz, turşu, dümüç ateş sos, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "100g", p1: "250₺", p2: "330₺", p3: "640₺", kanka: "950₺" }
+            ]},
+            "burger": { name: "Dümüç Köfte Burger", img: "burger.jpg", ing: "Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "100g", p1: "230₺", p2: "310₺", p3: "600₺", kanka: "890₺" }
+            ]},
+            "double-burger": { name: "Dümüç Double Burger", img: "double-burger.jpg", ing: "2 Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "200g", p1: "320₺", p2: "410₺", p3: "800₺", kanka: "1190₺" }
+            ]},
+            "citir-burger": { name: "Çıtır Tavuk Burger", img: "citir-tavuk-burger.jpg", ing: "Çıtır tavuklar, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez", combo: "+80 TL", prices: [
+                { gram: "100g", p1: "150₺", p2: "230₺", p3: "440₺", kanka: "650₺" }
+            ]},
+            "salata": { name: "Dümüç Salata", img: "salata.jpg", ing: "Aysberg, kırmızı kıvırcık, havuç, mısır, dümüç sos, çıtır tavuklar", combo: "Yok", prices: [
+                { gram: "120g", p1: "190₺", p2: "", p3: "", kanka: "" }
+            ]},
+            "kumru": { name: "Kumrumuz", img: "kumru.jpg", ing: "Sosis, sucuk, kaşar, turşu, ketçap, mayonez", combo: "+80 TL", prices: [
+                { gram: "200g", p1: "125₺", p2: "205₺", p3: "390₺", kanka: "575₺" }
+            ]},
+            "baslangic": { name: "Başlangıçlar & Tatlı", img: "logo.png", ing: "Soğan Halkası, Baharatlı Patates, Çıtır Tavuk, Fırında Sütlaç", combo: "Yok", prices: [
+                { gram: "Soğan Halkası (4'lü)", p1: "30₺", p2: "", p3: "", kanka: "" },
+                { gram: "Soğan Halkası (8'li)", p1: "50₺", p2: "", p3: "", kanka: "" },
+                { gram: "Baharatlı Patates", p1: "60₺", p2: "", p3: "", kanka: "" },
+                { gram: "Çıtır Tavuk (4'lü)", p1: "40₺", p2: "", p3: "", kanka: "" },
+                { gram: "Çıtır Tavuk (8'li)", p1: "65₺", p2: "", p3: "", kanka: "" },
+                { gram: "Dümüç Başlangıç", p1: "125₺", p2: "", p3: "", kanka: "" },
+                { gram: "Fırında Sütlaç", p1: "60₺", p2: "", p3: "", kanka: "" }
+            ]},
+            "icecek": { name: "İçecekler", img: "logo.png", ing: "Pepsi, Yedigün, Sevenup, Tropicana, Limonata, Ayran, Şalgam", combo: "Yok", prices: [
+                { gram: "Pepsi / Yedigün / vb.", p1: "60₺", p2: "", p3: "", kanka: "" },
+                { gram: "Şalgam", p1: "45₺", p2: "", p3: "", kanka: "" },
+                { gram: "Ayran (Küçük)", p1: "30₺", p2: "", p3: "", kanka: "" },
+                { gram: "Ayran (Büyük)", p1: "50₺", p2: "", p3: "", kanka: "" }
+            ]}
+        };
+
         const urlParams = new URLSearchParams(window.location.search);
-        const prodId = urlParams.get('id');
-        
-        let data = getMenuData();
-        let product = data[prodId];
+        const productId = urlParams.get('id');
+        const container = document.getElementById('productContainer');
 
-        if (product) {
-            document.getElementById('prodName').innerText = product.name;
-            document.getElementById('prodIng').innerHTML = `<i class="fa-solid fa-utensils" style="color: #ff9800; margin-right: 8px;"></i> ${product.ingredients}`;
+        if (productId && products[productId]) {
+            let p = products[productId];
             
-            if(product.image && product.image.trim() !== "") {
-                document.getElementById('imgBox').innerHTML = `<img src="${product.image}" alt="${product.name}">`;
-            }
+            let priceHtml = '';
+            p.prices.forEach(item => {
+                if(item.p2 === "" && item.p3 === "" && item.kanka === "") {
+                    priceHtml += `
+                        <div class="price-row-card">
+                            <span class="gram-badge">${item.gram}</span>
+                            <div class="prices-group">
+                                <span class="price-item highlight" style="width: 100%; text-align: center;">${item.p1}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    priceHtml += `
+                        <div class="price-row-card">
+                            <span class="gram-badge">${item.gram}</span>
+                            <div class="prices-group">
+                                <span class="price-item"><span>Tek</span>${item.p1}</span>
+                                <span class="price-item"><span>Menü</span>${item.p2}</span>
+                                <span class="price-item"><span>2'li Dost</span>${item.p3}</span>
+                                <span class="price-item highlight"><span>3'lü Kanka (lt)</span>${item.kanka}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
 
-            let tbody = document.getElementById('priceTableBody');
-            tbody.innerHTML = "";
-            for (let gram in product.prices) {
-                let p = product.prices[gram];
-                tbody.innerHTML += `
-                    <tr>
-                        <td><strong>${gram}</strong></td>
-                        <td class="highlight-price">${p.normal || '-'}</td>
-                        <td>${p.dost || '-'}</td>
-                        <td>${p.kanka || '-'}</td>
-                        <td>${p.dorthu || '-'}</td>
-                    </tr>
-                `;
-            }
+            container.innerHTML = `
+                <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön</a>
+                <div class="product-layout">
+                    <div class="product-left">
+                        <div class="product-img-box">
+                            <img src="${p.img}" alt="${p.name}" onerror="this.src='logo.png'">
+                        </div>
+                        <div class="product-ingredients-box">
+                            <div class="ingredients-title"><i class="fa-solid fa-circle-info"></i> İçindekiler</div>
+                            <div class="product-ingredients">${p.ing}</div>
+                        </div>
+                    </div>
+                    <div class="product-right">
+                        <div class="product-title">${p.name}</div>
+                        ${p.combo !== "Yok" ? `<div class="combo-info"><i class="fa-solid fa-utensils"></i> Patates + İçecek: ${p.combo}</div>` : ''}
+                        <div class="pricing-table">
+                            <div class="price-title"><i class="fa-solid fa-tags"></i> Fiyat Listesi</div>
+                            <div class="price-cards-container">
+                                ${priceHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
         } else {
-            document.querySelector('.product-container').innerHTML = "<h2>Ürün bulunamadı!</h2>";
+            container.innerHTML = `<a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön</a><h2 style="color:#ff9800; text-align:center; padding:40px 0;">Ürün bulunamadı!</h2>`;
         }
     </script>
 </body>
