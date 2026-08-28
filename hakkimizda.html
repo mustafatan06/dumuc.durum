@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #080301; color: #fff; line-height: 1.6; overflow-x: hidden; width: 100%; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: #080301; color: #fff; line-height: 1.6; }
         
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -15,76 +15,166 @@
             pointer-events: none; z-index: 1;
         }
 
-        /* Sabit Üst Menü */
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(10, 5, 3, 0.98); backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.8); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,87,34,0.3); }
-        .nav-container { width: 92%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
-        .logo-img { height: 38px; width: auto; display: block; }
+        .global-ember {
+            position: fixed; background: #ff3300; border-radius: 50%; pointer-events: none; z-index: 1;
+            box-shadow: 0 0 10px #ff5722, 0 0 18px #ff9800; animation: globalRiseEmber linear infinite;
+        }
+        @keyframes globalRiseEmber {
+            0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-10vh) scale(1.6); opacity: 0; }
+        }
+
+        /* HEADER & MOBİL UYUMLU KÜÇÜK MENÜ LİNKLERİ */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(10, 5, 3, 0.98); z-index: 1000; padding: 10px 0; border-bottom: 1px solid rgba(255,87,34,0.3); }
+        .nav-container { width: 96%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 5px; }
+        .logo-img { height: 32px; width: auto; display: block; flex-shrink: 0; }
         
-        /* Temizlenmiş Üst Menü Linkleri */
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        .nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
+        .nav-links a { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.82rem; transition: 0.3s; white-space: nowrap; }
         .nav-links a:hover { color: #ff9800; }
-        .btn-paket-nav { background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff !important; padding: 8px 18px; border-radius: 30px; }
-        .active-page { color: #ff9800 !important; }
+        .btn-paket-nav { background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff !important; padding: 6px 12px; border-radius: 20px; box-shadow: 0 0 10px rgba(255, 100, 0, 0.5); font-size: 0.8rem !important; }
 
-        .container { max-width: 1050px; margin: 140px auto 50px auto; width: 92%; background: rgba(18, 8, 4, 0.95); border: 1px solid rgba(255, 87, 34, 0.4); border-radius: 18px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); position: relative; z-index: 2; }
+        .container { max-width: 900px; margin: 110px auto 40px auto; width: 92%; position: relative; z-index: 2; }
         
-        .story-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 35px; align-items: center; }
-        .story-img-box { width: 100%; height: 350px; background: #120603; border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255, 87, 34, 0.4); box-shadow: inset 0 0 20px rgba(0,0,0,0.9); overflow: hidden; }
-        .story-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .story-title { font-size: 2.3rem; color: #ffeb3b; font-weight: 800; margin-bottom: 15px; }
-        .story-text-box { border: 1px solid rgba(255, 87, 34, 0.4); background: rgba(255, 87, 34, 0.04); border-radius: 12px; padding: 25px; }
-        .story-text { font-size: 1rem; color: #ddd; line-height: 1.8; white-space: pre-line; }
+        .section-header { text-align: center; margin-bottom: 35px; }
+        .section-header h1 {
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff9800, #ff3300, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            filter: drop-shadow(0 0 20px rgba(255, 87, 34, 0.6));
+        }
 
-        /* Siber Tan Medya Tasarım İmzası */
+        .about-card {
+            background: rgba(255, 87, 34, 0.05);
+            border: 1px solid rgba(255, 87, 34, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .about-card h2 {
+            font-size: 1.6rem;
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-card h2 i { color: #ff9800; }
+
+        .about-card p {
+            color: #ddd;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.2rem;
+            color: #ffeb3b;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 0;
+        }
+
         .agency-badge {
             margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
-            padding: 12px 20px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+            padding: 12px 16px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
             text-align: center; max-width: 650px; backdrop-filter: blur(8px);
         }
-        .cyber-line-1 { color: #00ffcc; font-weight: 800; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
-        .cyber-line-2 { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.8rem; }
+        .cyber-line-1 { color: #00ffcc; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+        .cyber-line-2 { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.75rem; }
         .cyber-line-2 a, .cyber-line-2 span { color: #ff9800; text-decoration: none; font-weight: 700; }
         .cyber-line-2 a:hover { color: #00ffcc; }
 
-        .footer { text-align: center; padding: 25px 15px; color: #777; font-size: 0.88rem; border-top: 1px solid rgba(255,87,34,0.2); margin-top: 40px; background: rgba(8, 3, 1, 0.98); }
+        .footer { text-align: center; padding: 20px 10px; color: #777; font-size: 0.8rem; border-top: 1px solid rgba(255,87,34,0.2); background: rgba(8, 3, 1, 0.98); }
 
-        @media(max-width: 900px) {
-            .container { padding: 22px; margin-top: 110px; width: 95%; }
-            .story-layout { grid-template-columns: 1fr; gap: 25px; }
-            .story-img-box { height: 240px; }
+        @media(max-width: 768px) {
+            .container { width: 95%; margin-top: 95px; }
+            .about-card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="global-ember" style="left: 10%; width: 6px; height: 6px; animation-duration: 2.2s;"></div>
+    <div class="global-ember" style="left: 50%; width: 8px; height: 8px; animation-duration: 3s;"></div>
+    <div class="global-ember" style="left: 80%; width: 7px; height: 7px; animation-duration: 2.5s;"></div>
+
     <header class="header">
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'"></a>
+            <a href="index.html">
+                <img src="logo.png" alt="Logo" class="logo-img" onerror="if(this.src.includes('logo.png')) { this.src='logo.jpg'; } else if(this.src.includes('logo.jpg')) { this.src='logo.jpeg'; } else { this.style.display='none'; }">
+            </a>
             <nav class="nav-links">
                 <a href="index.html">Ana Menü</a>
+                <a href="hakkimizda.html" style="color: #ff9800;">Hakkımızda</a>
                 <a href="paket-menu.html" class="btn-paket-nav">Paket Servis</a>
-                <a href="hakkimizda.html" class="active-page">Hakkımızda</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
-        <div class="story-layout">
-            <div class="story-img-box">
-                <img src="logo.png" alt="d ü mü ç" onerror="this.src='logo.png'">
-            </div>
-            <div>
-                <div class="story-title">Dümüç Hikayemiz</div>
-                <div class="story-text-box">
-                    <div class="story-text">Bir kelime Anadolu’dan, bir lezzet bizden…
-Bazı lezzetlerin bir tarifi vardır. Bazılarının ise bir hikâyesi…
-Gün doğmadan yola çıkan çobanların, tarlaya giden emekçilerin yanında köy ekmeğinin arasına bazen peynir bazen de tereyağı ile peynirin birleşerek sarılarak oluşturduğu lezzetin adı Anadolu’da Dümüçtür.
+        
+        <div class="section-header">
+            <h1>Hakkımızda</h1>
+        </div>
 
-Biz bu eski kelimeyi alıp geçmişte bırakmak istemedik. Tam tersine, Anadolu’dan gelen bu fikri bugünün damak tadıyla yeniden yorumlayarak özel soslarımızla birleştirdik.
-Kökümüz Anadolu’da, yolumuz gelecekte.</div>
-                </div>
+        <div class="about-card">
+            <h2><i class="fa-solid fa-fire"></i> Yeni Nesil Dürümün Adresi</h2>
+            <p>Dümüç Döner olarak, geleneksel Türk döner lezzetini modern dokunuşlar, taptaze malzemeler ve özel soslarımızla buluşturarak sizlere yepyeni bir lezzet deneyimi sunuyoruz.</p>
+            <p>Yola çıktığımız ilk günden bu yana kalite, hijyen ve müşteri memnuniyetini en üst sırada tutarak; standart döner anlayışını yıkıp "Yeni Nesil Dürüm" konseptini Ankara'da sektöre kazandırdık.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-seedling"></i>
+                <h3>Taze Malzemeler</h3>
+                <p>Günlük ve özenle seçilen en kaliteli etler, yeşillikler ve özel yapım soslar.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>Hızlı Servis</h3>
+                <p>İster restoranda ister paket serviste en hızlı ve sıcak şekilde kapınızda.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-heart"></i>
+                <h3>Özel Lezzetler</h3>
+                <p>Klasik lezzetlerin yanı sıra Chedarlı, Doritoslu ve Ateş Dümüç gibi eşsiz tatlar.</p>
             </div>
         </div>
 
@@ -96,6 +186,7 @@ Kökümüz Anadolu’da, yolumuz gelecekte.</div>
                 <span>|</span> <a href="https://www.tanmedyatasarim.com" target="_blank"><i class="fa-solid fa-globe"></i> www.tanmedyatasarim.com</a>
             </div>
         </div>
+
     </div>
 
     <footer class="footer">
