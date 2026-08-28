@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: #080301; color: #fff; line-height: 1.6; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: #080301; color: #fff; line-height: 1.5; }
         
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -15,24 +15,25 @@
             pointer-events: none; z-index: 1;
         }
 
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(10, 5, 3, 0.98); z-index: 1000; padding: 12px 0; border-bottom: 1px solid rgba(255,87,34,0.3); }
-        .nav-container { width: 92%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo-img { height: 38px; width: auto; display: block; }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(10, 5, 3, 0.98); z-index: 1000; padding: 10px 0; border-bottom: 1px solid rgba(255,87,34,0.3); }
+        .nav-container { width: 96%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 5px; }
+        .logo-img { height: 32px; width: auto; display: block; flex-shrink: 0; }
+        
+        .nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
+        .nav-links a { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.82rem; transition: 0.3s; white-space: nowrap; }
         .nav-links a:hover { color: #ff9800; }
-        .btn-paket-nav { background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff !important; padding: 9px 24px; border-radius: 30px; box-shadow: 0 0 15px rgba(255, 100, 0, 0.5); }
+        .btn-paket-nav { background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff !important; padding: 6px 12px; border-radius: 20px; box-shadow: 0 0 10px rgba(255, 100, 0, 0.5); font-size: 0.8rem !important; }
 
-        .container { max-width: 1100px; margin: 130px auto 50px auto; width: 92%; position: relative; z-index: 2; }
+        .container { max-width: 1100px; margin: 110px auto 40px auto; width: 92%; position: relative; z-index: 2; }
         
         /* GERÇEKÇİ MOTORLU KURYE YOL ANİMASYONU */
-        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header { text-align: center; margin-bottom: 35px; }
         
         .delivery-track {
             width: 100%;
-            max-width: 450px;
-            height: 75px;
-            margin: 0 auto 15px auto;
+            max-width: 400px;
+            height: 65px;
+            margin: 0 auto 12px auto;
             position: relative;
             border-bottom: 3px dashed rgba(255, 152, 0, 0.4);
             overflow: hidden;
@@ -42,7 +43,7 @@
             position: absolute;
             bottom: 5px;
             left: 0;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #ff9800;
             animation: driveToDestination 4s linear infinite;
             filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.7));
@@ -52,7 +53,7 @@
             position: absolute;
             right: 10px;
             bottom: 5px;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #ffeb3b;
             animation: pulseHouse 2s ease-in-out infinite;
         }
@@ -70,75 +71,79 @@
             50% { transform: scale(1.15); filter: drop-shadow(0 0 15px rgba(255,235,59,0.9)); }
         }
 
-        .section-header h2 { font-size: 2.3rem; color: #ffeb3b; font-weight: 800; text-transform: uppercase; }
-        .section-header p { color: #aaa; font-size: 1rem; margin-top: 5px; }
+        .section-header h2 { font-size: 2rem; color: #ffeb3b; font-weight: 800; text-transform: uppercase; }
+        .section-header p { color: #aaa; font-size: 0.95rem; margin-top: 4px; }
 
-        .menu-category-title { font-size: 1.8rem; color: #ff9800; border-bottom: 2px solid #ff5722; padding-bottom: 8px; margin: 45px 0 25px 0; }
-        .menu-items-grid { display: grid; grid-template-columns: 1fr; gap: 35px; }
+        .menu-category-title { font-size: 1.5rem; color: #ff9800; border-bottom: 2px solid #ff5722; padding-bottom: 6px; margin: 40px 0 20px 0; }
+        .menu-items-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
         
         .menu-item-card {
-            background: transparent; border: none; padding: 10px 0;
-            display: grid; grid-template-columns: 280px 1fr; gap: 35px; align-items: center;
-            border-bottom: 1px solid rgba(255, 87, 34, 0.15); padding-bottom: 35px;
+            background: transparent; border: none; padding: 0;
+            display: grid; grid-template-columns: 240px 1fr; gap: 25px; align-items: center;
+            border-bottom: 1px solid rgba(255, 87, 34, 0.15); padding-bottom: 25px;
         }
 
         .menu-item-card-no-img {
-            background: transparent; border: none; padding: 10px 0;
+            background: transparent; border: none; padding: 0;
             display: block;
-            border-bottom: 1px solid rgba(255, 87, 34, 0.15); padding-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 87, 34, 0.15); padding-bottom: 25px;
         }
         
         .item-img-box { 
-            width: 280px; height: 280px; background: rgba(0,0,0,0.7); border-radius: 18px; overflow: hidden; 
+            width: 240px; height: 240px; background: rgba(0,0,0,0.7); border-radius: 16px; overflow: hidden; 
             display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,87,34,0.6); 
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 8px 25px rgba(0,0,0,0.6); flex-shrink: 0; padding: 10px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 6px 20px rgba(0,0,0,0.6); flex-shrink: 0; padding: 10px;
         }
         .item-img-box img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s; }
         .item-img-box img:hover { transform: scale(1.05); }
         
         .item-content-right { display: flex; flex-direction: column; width: 100%; }
-        .item-name { font-size: 1.8rem; color: #ffeb3b; font-weight: 700; margin-bottom: 8px; }
-        .item-desc { color: #ddd; font-size: 1.05rem; margin-bottom: 6px; }
-        .item-extra { color: #ff9800; font-size: 0.95rem; font-style: italic; margin-bottom: 15px; font-weight: 600; }
+        .item-name { font-size: 1.5rem; color: #ffeb3b; font-weight: 700; margin-bottom: 6px; }
+        .item-desc { color: #ddd; font-size: 0.98rem; margin-bottom: 4px; }
+        .item-extra { color: #ff9800; font-size: 0.9rem; font-style: italic; margin-bottom: 12px; font-weight: 600; }
 
-        .price-row-container { width: 100%; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; margin-bottom: 18px; }
+        .price-row-container { width: 100%; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; margin-bottom: 15px; }
         .price-row {
-            background: rgba(255, 87, 34, 0.08); border: 1px solid rgba(255, 87, 34, 0.2); border-radius: 10px; padding: 11px 16px;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+            background: rgba(255, 87, 34, 0.08); border: 1px solid rgba(255, 87, 34, 0.2); border-radius: 8px; padding: 10px 12px;
+            display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
-        .gram-title { color: #ff9800; font-weight: 700; font-size: 1rem; }
-        .prices-group { display: flex; gap: 14px; flex-wrap: wrap; }
-        .price-badge { background: rgba(0,0,0,0.4); padding: 5px 12px; border-radius: 8px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.08); }
+        .gram-title { color: #ff9800; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .prices-group { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+        .price-badge { background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.08); white-space: nowrap; }
         .price-badge span { color: #ffeb3b; font-weight: 700; }
 
         .btn-urun-siparis {
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff;
-            padding: 12px 25px; border-radius: 30px; text-decoration: none;
-            font-weight: 700; font-size: 1rem; border: 2px solid #ffeb3b;
-            box-shadow: 0 0 15px rgba(255, 51, 0, 0.6); transition: 0.3s;
+            padding: 10px 20px; border-radius: 30px; text-decoration: none;
+            font-weight: 700; font-size: 0.9rem; border: 2px solid #ffeb3b;
+            box-shadow: 0 0 12px rgba(255, 51, 0, 0.6); transition: 0.3s;
             align-self: flex-start;
         }
-        .btn-urun-siparis:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 25px rgba(255, 51, 0, 0.9); }
+        .btn-urun-siparis:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 20px rgba(255, 51, 0, 0.9); }
 
         .agency-badge {
-            margin: 60px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
-            padding: 12px 20px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+            margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
+            padding: 12px 16px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
             text-align: center; max-width: 650px; backdrop-filter: blur(8px);
         }
-        .cyber-line-1 { color: #00ffcc; font-weight: 800; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
-        .cyber-line-2 { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.8rem; }
+        .cyber-line-1 { color: #00ffcc; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+        .cyber-line-2 { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.75rem; }
         .cyber-line-2 a, .cyber-line-2 span { color: #ff9800; text-decoration: none; font-weight: 700; }
         .cyber-line-2 a:hover { color: #00ffcc; }
 
-        .footer { text-align: center; padding: 20px 15px; color: #777; font-size: 0.85rem; border-top: 1px solid rgba(255,87,34,0.2); background: rgba(8, 3, 1, 0.98); }
+        .footer { text-align: center; padding: 20px 10px; color: #777; font-size: 0.8rem; border-top: 1px solid rgba(255,87,34,0.2); background: rgba(8, 3, 1, 0.98); }
 
-        @media(max-width: 900px) {
-            .container { width: 95%; margin-top: 100px; }
-            .menu-item-card { grid-template-columns: 1fr; text-align: center; padding-bottom: 25px; }
-            .item-img-box { width: 220px; height: 220px; margin: 0 auto; }
-            .price-row { flex-direction: column; align-items: flex-start; gap: 6px; }
-            .prices-group { width: 100%; justify-content: space-between; }
+        /* MOBİL UYUMLU DÜZEN */
+        @media(max-width: 768px) {
+            .container { width: 95%; margin-top: 95px; }
+            .menu-item-card { grid-template-columns: 1fr; text-align: center; gap: 15px; }
+            .item-img-box { width: 180px; height: 180px; margin: 0 auto; }
+            
+            .price-row { flex-direction: column; align-items: stretch; gap: 6px; text-align: left; padding: 10px; }
+            .gram-title { border-bottom: 1px solid rgba(255,87,34,0.2); padding-bottom: 4px; margin-bottom: 2px; }
+            .prices-group { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; width: 100%; }
+            .price-badge { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; width: 100%; }
             .btn-urun-siparis { width: 100%; }
         }
     </style>
@@ -194,9 +199,9 @@
                     <div class="item-desc">Tavuk döner, yeşillik, domates, soğan, turşu</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>145 TL</span></div><div class="price-badge">Menü: <span>245 TL</span></div><div class="price-badge">2'li Dost Menü: <span>470 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>695 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>175 TL</span></div><div class="price-badge">Menü: <span>275 TL</span></div><div class="price-badge">2'li Dost Menü: <span>530 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>785 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>200 TL</span></div><div class="price-badge">Menü: <span>300 TL</span></div><div class="price-badge">2'li Dost Menü: <span>580 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>860 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>145 TL</span></div><div class="price-badge">Menü: <span>245 TL</span></div><div class="price-badge">2'li Dost: <span>470 TL</span></div><div class="price-badge">3'lü Kanka: <span>695 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>175 TL</span></div><div class="price-badge">Menü: <span>275 TL</span></div><div class="price-badge">2'li Dost: <span>530 TL</span></div><div class="price-badge">3'lü Kanka: <span>785 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>200 TL</span></div><div class="price-badge">Menü: <span>300 TL</span></div><div class="price-badge">2'li Dost: <span>580 TL</span></div><div class="price-badge">3'lü Kanka: <span>860 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -209,9 +214,9 @@
                     <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, hatay sos</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>170 TL</span></div><div class="price-badge">Menü: <span>270 TL</span></div><div class="price-badge">2'li Dost Menü: <span>520 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>770 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>210 TL</span></div><div class="price-badge">Menü: <span>310 TL</span></div><div class="price-badge">2'li Dost Menü: <span>600 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>890 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>240 TL</span></div><div class="price-badge">Menü: <span>340 TL</span></div><div class="price-badge">2'li Dost Menü: <span>660 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>980 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>170 TL</span></div><div class="price-badge">Menü: <span>270 TL</span></div><div class="price-badge">2'li Dost: <span>520 TL</span></div><div class="price-badge">3'lü Kanka: <span>770 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>210 TL</span></div><div class="price-badge">Menü: <span>310 TL</span></div><div class="price-badge">2'li Dost: <span>600 TL</span></div><div class="price-badge">3'lü Kanka: <span>890 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>240 TL</span></div><div class="price-badge">Menü: <span>340 TL</span></div><div class="price-badge">2'li Dost: <span>660 TL</span></div><div class="price-badge">3'lü Kanka: <span>980 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -224,9 +229,9 @@
                     <div class="item-desc">Tavuk döner, patates, turşu, dümüç sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>185 TL</span></div><div class="price-badge">Menü: <span>285 TL</span></div><div class="price-badge">2'li Dost Menü: <span>550 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>815 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>215 TL</span></div><div class="price-badge">Menü: <span>315 TL</span></div><div class="price-badge">2'li Dost Menü: <span>610 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>900 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>245 TL</span></div><div class="price-badge">Menü: <span>345 TL</span></div><div class="price-badge">2'li Dost Menü: <span>670 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>995 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>185 TL</span></div><div class="price-badge">Menü: <span>285 TL</span></div><div class="price-badge">2'li Dost: <span>550 TL</span></div><div class="price-badge">3'lü Kanka: <span>815 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>215 TL</span></div><div class="price-badge">Menü: <span>315 TL</span></div><div class="price-badge">2'li Dost: <span>610 TL</span></div><div class="price-badge">3'lü Kanka: <span>900 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>245 TL</span></div><div class="price-badge">Menü: <span>345 TL</span></div><div class="price-badge">2'li Dost: <span>670 TL</span></div><div class="price-badge">3'lü Kanka: <span>995 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -239,9 +244,9 @@
                     <div class="item-desc">Tavuk döner, soğan, domates, maydanoz, dümüç sos</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>190 TL</span></div><div class="price-badge">Menü: <span>290 TL</span></div><div class="price-badge">2'li Dost Menü: <span>560 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>830 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>225 TL</span></div><div class="price-badge">Menü: <span>325 TL</span></div><div class="price-badge">2'li Dost Menü: <span>630 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>935 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>250 TL</span></div><div class="price-badge">Menü: <span>350 TL</span></div><div class="price-badge">2'li Dost Menü: <span>680 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1000 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>190 TL</span></div><div class="price-badge">Menü: <span>290 TL</span></div><div class="price-badge">2'li Dost: <span>560 TL</span></div><div class="price-badge">3'lü Kanka: <span>830 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>225 TL</span></div><div class="price-badge">Menü: <span>325 TL</span></div><div class="price-badge">2'li Dost: <span>630 TL</span></div><div class="price-badge">3'lü Kanka: <span>935 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>250 TL</span></div><div class="price-badge">Menü: <span>350 TL</span></div><div class="price-badge">2'li Dost: <span>680 TL</span></div><div class="price-badge">3'lü Kanka: <span>1000 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -254,9 +259,9 @@
                     <div class="item-desc">Tavuk Döner, patates, soğan, turşu, domates, maydanoz, acılı dümüç sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>255 TL</span></div><div class="price-badge">Menü: <span>355 TL</span></div><div class="price-badge">2'li Dost Menü: <span>690 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1025 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>205 TL</span></div><div class="price-badge">Menü: <span>285 TL</span></div><div class="price-badge">2'li Dost Menü: <span>550 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>815 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>300 TL</span></div><div class="price-badge">Menü: <span>400 TL</span></div><div class="price-badge">2'li Dost Menü: <span>780 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1160 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>255 TL</span></div><div class="price-badge">Menü: <span>355 TL</span></div><div class="price-badge">2'li Dost: <span>690 TL</span></div><div class="price-badge">3'lü Kanka: <span>1025 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>205 TL</span></div><div class="price-badge">Menü: <span>285 TL</span></div><div class="price-badge">2'li Dost: <span>550 TL</span></div><div class="price-badge">3'lü Kanka: <span>815 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>300 TL</span></div><div class="price-badge">Menü: <span>400 TL</span></div><div class="price-badge">2'li Dost: <span>780 TL</span></div><div class="price-badge">3'lü Kanka: <span>1160 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -269,9 +274,9 @@
                     <div class="item-desc">Tavuk döner, aysberg, kırmızı kıvırcık, patates, domates, turşu, dümüç sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>240 TL</span></div><div class="price-badge">Menü: <span>340 TL</span></div><div class="price-badge">2'li Dost Menü: <span>660 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>980 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>280 TL</span></div><div class="price-badge">Menü: <span>380 TL</span></div><div class="price-badge">2'li Dost Menü: <span>740 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1100 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>315 TL</span></div><div class="price-badge">Menü: <span>415 TL</span></div><div class="price-badge">2'li Dost Menü: <span>815 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1200 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>240 TL</span></div><div class="price-badge">Menü: <span>340 TL</span></div><div class="price-badge">2'li Dost: <span>660 TL</span></div><div class="price-badge">3'lü Kanka: <span>980 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>280 TL</span></div><div class="price-badge">Menü: <span>380 TL</span></div><div class="price-badge">2'li Dost: <span>740 TL</span></div><div class="price-badge">3'lü Kanka: <span>1100 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>315 TL</span></div><div class="price-badge">Menü: <span>415 TL</span></div><div class="price-badge">2'li Dost: <span>815 TL</span></div><div class="price-badge">3'lü Kanka: <span>1200 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -284,9 +289,9 @@
                     <div class="item-desc">Tavuk döner, patates, yeşillik, turşu, chedar sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>265 TL</span></div><div class="price-badge">Menü: <span>365 TL</span></div><div class="price-badge">2'li Dost Menü: <span>710 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1055 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>305 TL</span></div><div class="price-badge">Menü: <span>405 TL</span></div><div class="price-badge">2'li Dost Menü: <span>790 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1175 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>340 TL</span></div><div class="price-badge">Menü: <span>440 TL</span></div><div class="price-badge">2'li Dost Menü: <span>860 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1280 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>265 TL</span></div><div class="price-badge">Menü: <span>365 TL</span></div><div class="price-badge">2'li Dost: <span>710 TL</span></div><div class="price-badge">3'lü Kanka: <span>1055 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>305 TL</span></div><div class="price-badge">Menü: <span>405 TL</span></div><div class="price-badge">2'li Dost: <span>790 TL</span></div><div class="price-badge">3'lü Kanka: <span>1175 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>340 TL</span></div><div class="price-badge">Menü: <span>440 TL</span></div><div class="price-badge">2'li Dost: <span>860 TL</span></div><div class="price-badge">3'lü Kanka: <span>1280 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -299,9 +304,9 @@
                     <div class="item-desc">Tavuk döner, doritos, chedar sos, patates, turşu, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>270 TL</span></div><div class="price-badge">Menü: <span>370 TL</span></div><div class="price-badge">2'li Dost Menü: <span>720 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1060 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>315 TL</span></div><div class="price-badge">Menü: <span>415 TL</span></div><div class="price-badge">2'li Dost Menü: <span>810 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1200 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>350 TL</span></div><div class="price-badge">Menü: <span>450 TL</span></div><div class="price-badge">2'li Dost Menü: <span>880 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1310 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>270 TL</span></div><div class="price-badge">Menü: <span>370 TL</span></div><div class="price-badge">2'li Dost: <span>720 TL</span></div><div class="price-badge">3'lü Kanka: <span>1060 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>315 TL</span></div><div class="price-badge">Menü: <span>415 TL</span></div><div class="price-badge">2'li Dost: <span>810 TL</span></div><div class="price-badge">3'lü Kanka: <span>1200 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>350 TL</span></div><div class="price-badge">Menü: <span>450 TL</span></div><div class="price-badge">2'li Dost: <span>880 TL</span></div><div class="price-badge">3'lü Kanka: <span>1310 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -314,9 +319,9 @@
                     <div class="item-desc">Tavuk döner, patates, turşu, barbekü sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>175 TL</span></div><div class="price-badge">Menü: <span>255 TL</span></div><div class="price-badge">2'li Dost Menü: <span>490 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>725 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>255 TL</span></div><div class="price-badge">Menü: <span>355 TL</span></div><div class="price-badge">2'li Dost Menü: <span>690 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1025 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>335 TL</span></div><div class="price-badge">Menü: <span>435 TL</span></div><div class="price-badge">2'li Dost Menü: <span>850 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1265 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>175 TL</span></div><div class="price-badge">Menü: <span>255 TL</span></div><div class="price-badge">2'li Dost: <span>490 TL</span></div><div class="price-badge">3'lü Kanka: <span>725 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>255 TL</span></div><div class="price-badge">Menü: <span>355 TL</span></div><div class="price-badge">2'li Dost: <span>690 TL</span></div><div class="price-badge">3'lü Kanka: <span>1025 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>335 TL</span></div><div class="price-badge">Menü: <span>435 TL</span></div><div class="price-badge">2'li Dost: <span>850 TL</span></div><div class="price-badge">3'lü Kanka: <span>1265 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -329,9 +334,9 @@
                     <div class="item-desc">Tavuk döner, patates, turşu, eritme kaşar, dümüç sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>265 TL</span></div><div class="price-badge">Menü: <span>365 TL</span></div><div class="price-badge">2'li Dost Menü: <span>710 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1055 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>305 TL</span></div><div class="price-badge">Menü: <span>405 TL</span></div><div class="price-badge">2'li Dost Menü: <span>560 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>830 TL</span></div></div></div>
-                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>340 TL</span></div><div class="price-badge">Menü: <span>440 TL</span></div><div class="price-badge">2'li Dost Menü: <span>860 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1280 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">75 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>265 TL</span></div><div class="price-badge">Menü: <span>365 TL</span></div><div class="price-badge">2'li Dost: <span>710 TL</span></div><div class="price-badge">3'lü Kanka: <span>1055 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>305 TL</span></div><div class="price-badge">Menü: <span>405 TL</span></div><div class="price-badge">2'li Dost: <span>560 TL</span></div><div class="price-badge">3'lü Kanka: <span>830 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">125 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>340 TL</span></div><div class="price-badge">Menü: <span>440 TL</span></div><div class="price-badge">2'li Dost: <span>860 TL</span></div><div class="price-badge">3'lü Kanka: <span>1280 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -349,7 +354,7 @@
                     <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>365 TL</span></div><div class="price-badge">Menü: <span>465 TL</span></div><div class="price-badge">2'li Dost Menü: <span>910 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1345 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>365 TL</span></div><div class="price-badge">Menü: <span>465 TL</span></div><div class="price-badge">2'li Dost: <span>910 TL</span></div><div class="price-badge">3'lü Kanka: <span>1345 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -362,7 +367,7 @@
                     <div class="item-desc">Köfte, patates, soğan, domates, maydanoz, turşu, dümüç ateş sos, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>365 TL</span></div><div class="price-badge">Menü: <span>465 TL</span></div><div class="price-badge">2'li Dost Menü: <span>910 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1345 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>365 TL</span></div><div class="price-badge">Menü: <span>465 TL</span></div><div class="price-badge">2'li Dost: <span>910 TL</span></div><div class="price-badge">3'lü Kanka: <span>1345 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -379,7 +384,7 @@
                     <div class="item-desc">Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 80 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>330 TL</span></div><div class="price-badge">Menü: <span>430 TL</span></div><div class="price-badge">2'li Dost Menü: <span>840 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1250 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>330 TL</span></div><div class="price-badge">Menü: <span>430 TL</span></div><div class="price-badge">2'li Dost: <span>840 TL</span></div><div class="price-badge">3'lü Kanka: <span>1250 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -392,7 +397,7 @@
                     <div class="item-desc">2 Burger köftesi, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">200 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>460 TL</span></div><div class="price-badge">Menü: <span>560 TL</span></div><div class="price-badge">2'li Dost Menü: <span>1100 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>1640 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">200 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>460 TL</span></div><div class="price-badge">Menü: <span>560 TL</span></div><div class="price-badge">2'li Dost: <span>1100 TL</span></div><div class="price-badge">3'lü Kanka: <span>1640 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -405,7 +410,7 @@
                     <div class="item-desc">Çıtır tavuklar, soğan, domates, turşu, cheddar peyniri, ketçap, sarımsaklı mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>220 TL</span></div><div class="price-badge">Menü: <span>320 TL</span></div><div class="price-badge">2'li Dost Menü: <span>620 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>920 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">100 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>220 TL</span></div><div class="price-badge">Menü: <span>320 TL</span></div><div class="price-badge">2'li Dost: <span>620 TL</span></div><div class="price-badge">3'lü Kanka: <span>920 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -420,7 +425,7 @@
                 <div class="item-content-right">
                     <div class="item-name">Dümüç Salata</div>
                     <div class="item-desc">Aysberg, kırmızı kıvırcık, havuç, mısır, dümüç sos, çıtır tavuklar</div>
-                    <div class="price-row-container" style="margin-top: 15px;">
+                    <div class="price-row-container" style="margin-top: 12px;">
                         <div class="price-row"><span class="gram-title">120 gram</span><div class="prices-group"><div class="price-badge">Fiyat: <span>280 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis" style="margin-top: 15px;"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
@@ -434,7 +439,7 @@
                     <div class="item-desc">Sosis, sucuk, kaşar, turşu, ketçap, mayonez</div>
                     <div class="item-extra">(Patates + içecek) : 100 TL</div>
                     <div class="price-row-container">
-                        <div class="price-row"><span class="gram-title">200 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>185 TL</span></div><div class="price-badge">Menü: <span>285 TL</span></div><div class="price-badge">2'li Dost Menü: <span>550 TL</span></div><div class="price-badge">3'lü Kanka Menü: <span>815 TL</span></div></div></div>
+                        <div class="price-row"><span class="gram-title">200 gram</span><div class="prices-group"><div class="price-badge">Tek: <span>185 TL</span></div><div class="price-badge">Menü: <span>285 TL</span></div><div class="price-badge">2'li Dost: <span>550 TL</span></div><div class="price-badge">3'lü Kanka: <span>815 TL</span></div></div></div>
                     </div>
                     <a href="tel:03123563000" class="btn-urun-siparis"><i class="fa-solid fa-phone-volume"></i> Sipariş Ver / Ara</a>
                 </div>
@@ -448,7 +453,7 @@
                 <div class="item-content-right">
                     <div class="item-name">Ek Lezzetler, Tatlılar & İçecekler</div>
                     <div class="item-desc">Çıtır atıştırmalıklar, fırında sütlaç ve serinleten içecekler</div>
-                    <div class="price-row-container" style="margin-top: 15px;">
+                    <div class="price-row-container" style="margin-top: 12px;">
                         <div class="price-row"><span class="gram-title">Soğan halkası 4’lü</span><div class="prices-group"><div class="price-badge"><span>50 TL</span></div></div></div>
                         <div class="price-row"><span class="gram-title">Soğan halkası 8’li</span><div class="prices-group"><div class="price-badge"><span>85 TL</span></div></div></div>
                         <div class="price-row"><span class="gram-title">Baharatlı Patates</span><div class="prices-group"><div class="price-badge"><span>90 TL</span></div></div></div>
