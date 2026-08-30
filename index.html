@@ -42,10 +42,10 @@
             100% { transform: scale(1.02); }
         }
 
-        /* Üst ve Alttan Püsküren Volkan Meşaleleri İçin Canvas Alanı */
+        /* 5 Saniye Sonra Kapanacak Efekt Katmanı */
         #fx-canvas {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 999;
+            pointer-events: none; z-index: 999; transition: opacity 1s ease;
         }
 
         body { padding-top: 45px; padding-bottom: 45px; }
@@ -159,7 +159,7 @@
         function handleGelAlError(imgElement) { imgElement.src = 'dumuc.jpeg'; }
         function handleMotorError(imgElement) { imgElement.src = 'logo.png'; }
 
-        // Üstten ve Alttan Karşılıklı Püsküren Volkan Meşale Motoru
+        // Sadece İlk 5 Saniye Çalışıp Otomatik Kapanan Volkan Meşale Motoru
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('fx-canvas');
             const ctx = canvas.getContext('2d');
@@ -177,14 +177,13 @@
                     this.isTop = isTop;
                     this.y = isTop ? 45 : canvas.height - 45;
                     
-                    // Volkan yönü: Üstten çıkanlar aşağı, alttan çıkanlar yukarı doğru saçılır
                     const angleBase = isTop ? Math.PI / 2 : -Math.PI / 2;
                     const angle = angleBase + (Math.random() - 0.5) * 1.2;
                     const speed = Math.random() * 12 + 5;
                     
                     this.vx = Math.cos(angle) * speed;
                     this.vy = Math.sin(angle) * speed;
-                    this.gravity = isTop ? 0.2 : -0.2; // Yerçekimi yönü akışa göre ayarlandı
+                    this.gravity = isTop ? 0.2 : -0.2;
                     this.alpha = 1;
                     this.decay = Math.random() * 0.025 + 0.012;
                     this.size = Math.random() * 3.5 + 1.5;
@@ -214,29 +213,22 @@
             }
 
             let particles = [];
+            let isActive = true;
 
             function spawnVolcanoes() {
-                // Hem üst banttan hem alt banttan köşe ve orta noktalardan püskürtme
-                const xPoints = [
-                    canvas.width * 0.1, 
-                    canvas.width * 0.35, 
-                    canvas.width * 0.65, 
-                    canvas.width * 0.9
-                ];
-
+                if (!isActive) return;
+                const xPoints = [canvas.width * 0.1, canvas.width * 0.35, canvas.width * 0.65, canvas.width * 0.9];
                 xPoints.forEach(x => {
-                    // Alttan fışkıranlar
                     for (let i = 0; i < 4; i++) {
                         particles.push(new VolcanoParticle(x + (Math.random() * 30 - 15), false));
                     }
-                    // Üstten fışkıranlar
                     for (let i = 0; i < 4; i++) {
                         particles.push(new VolcanoParticle(x + (Math.random() * 30 - 15), true));
                     }
                 });
             }
 
-            setInterval(spawnVolcanoes, 40); // Yoğun ve sürekli akış
+            const intervalId = setInterval(spawnVolcanoes, 40);
 
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -247,9 +239,19 @@
                         particles.splice(i, 1);
                     }
                 }
-                requestAnimationFrame(animate);
+                if (isActive || particles.length > 0) {
+                    requestAnimationFrame(animate);
+                }
             }
             animate();
+
+            // 5 Saniye (5000 ms) sonra animasyonu tamamen durdur ve canvası gizle
+            setTimeout(() => {
+                isActive = false;
+                clearInterval(intervalId);
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.remove(), 1000);
+            }, 5000);
         });
     </script>
 </head>
@@ -260,7 +262,7 @@
         <span class="banner-text">🎉 AÇILDIK !!! DÜMÜÇLEMEYE BEKLİYORUZ . 🎉</span>
     </div>
 
-    <!-- Volkan Meşale Efekt Motoru -->
+    <!-- 5 Saniye Sonra Kapanacak Volkan Efekt Motoru -->
     <canvas id="fx-canvas"></canvas>
 
     <header class="hero-banner">
