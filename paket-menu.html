@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Paket Servis & Sipariş - d ü mü ç</title>
+    <title>Paket Servis & Menü - d ü mü ç d ö n e r</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -11,20 +11,76 @@
         
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at 50% 90%, rgba(255, 69, 0, 0.25) 0%, transparent 80%);
+            background: radial-gradient(circle at 50% 90%, rgba(255, 69, 0, 0.2) 0%, transparent 80%);
             pointer-events: none; z-index: 1;
         }
 
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(10, 5, 3, 0.98); z-index: 1000; padding: 10px 0; border-bottom: 1px solid rgba(255,87,34,0.3); }
-        .nav-container { width: 96%; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 5px; }
-        .logo-img { height: 32px; width: auto; display: block; flex-shrink: 0; }
-        
-        .nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
-        .nav-links a { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.82rem; transition: 0.3s; white-space: nowrap; }
-        .nav-links a:hover { color: #ff9800; }
-        .btn-paket-nav { background: linear-gradient(135deg, #ff9800, #ff3300); color: #fff !important; padding: 6px 12px; border-radius: 20px; box-shadow: 0 0 10px rgba(255, 100, 0, 0.5); font-size: 0.8rem !important; }
+        /* TEK TİP ÜST BANNER */
+        .hero-banner {
+            width: 100%;
+            background: #050201;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 87, 34, 0.4);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.9);
+            position: relative;
+            z-index: 10;
+        }
+        .hero-banner img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            display: inline-block;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.4));
+        }
 
-        .container { max-width: 1100px; margin: 110px auto 40px auto; width: 92%; position: relative; z-index: 2; }
+        /* TEK TİP SLOGAN ALANI */
+        .slogan-section {
+            text-align: center;
+            padding: 20px 15px;
+            position: relative;
+            z-index: 10;
+        }
+        .slogan-section h2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff9800, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* TEK TİP BAĞLANTILI ANA MENÜ */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 55px;
+            padding: 18px 20px;
+            background: rgba(15, 8, 5, 0.9);
+            border-top: 1px solid rgba(255, 87, 34, 0.2);
+            border-bottom: 1px solid rgba(255, 87, 34, 0.2);
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+        .main-nav a {
+            text-decoration: none;
+            color: #ddd;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+        .main-nav a:hover, .main-nav a.active {
+            color: #ff9800;
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
+        }
+
+        .container { max-width: 1100px; margin: 40px auto; width: 92%; position: relative; z-index: 2; }
         
         /* GERÇEKÇİ MOTORLU KURYE YOL ANİMASYONU */
         .section-header { text-align: center; margin-bottom: 35px; }
@@ -134,9 +190,10 @@
 
         .footer { text-align: center; padding: 20px 10px; color: #777; font-size: 0.8rem; border-top: 1px solid rgba(255,87,34,0.2); background: rgba(8, 3, 1, 0.98); }
 
-        /* MOBİL UYUMLU DÜZEN */
         @media(max-width: 768px) {
-            .container { width: 95%; margin-top: 95px; }
+            .main-nav { gap: 25px; padding: 12px 10px; }
+            .main-nav a { font-size: 0.9rem; }
+            .container { width: 95%; }
             .menu-item-card { grid-template-columns: 1fr; text-align: center; gap: 15px; }
             .item-img-box { width: 180px; height: 180px; margin: 0 auto; }
             
@@ -150,32 +207,37 @@
     <script>
         function handleImageError(imgElement) {
             const currentSrc = imgElement.src;
-            if (currentSrc.includes('ates-kofte.jpeg')) {
-                imgElement.src = 'ates-kofte.jpg';
-            } else if (currentSrc.includes('ates-kofte.jpg')) {
-                imgElement.src = 'ateskofte.jpeg';
-            } else if (currentSrc.includes('ateskofte.jpeg')) {
-                imgElement.src = 'ateskofte.jpg';
+            if (currentSrc.includes('logo.png')) {
+                imgElement.src = 'logo.jpg';
+            } else if (currentSrc.includes('logo.jpg')) {
+                imgElement.src = 'logo.jpeg';
             } else {
-                imgElement.src = 'logo.png';
+                imgElement.style.display = 'none';
             }
         }
     </script>
 </head>
 <body>
 
-    <header class="header">
-        <div class="nav-container">
-            <a href="index.html">
-                <img src="logo.png" alt="Logo" class="logo-img" onerror="if(this.src.includes('logo.png')) { this.src='logo.jpg'; } else if(this.src.includes('logo.jpg')) { this.src='logo.jpeg'; } else { this.style.display='none'; }">
-            </a>
-            <nav class="nav-links">
-                <a href="index.html">Ana Menü</a>
-                <a href="hakkimizda.html">Hakkımızda</a>
-                <a href="paket-menu.html" class="btn-paket-nav">Paket Servis</a>
-            </nav>
-        </div>
+    <!-- TEK TİP LOGO BANNER -->
+    <header class="hero-banner">
+        <a href="index.html">
+            <img src="logo.png" alt="Dümüç Döner Logo" onerror="handleImageError(this)">
+        </a>
     </header>
+
+    <!-- TEK TİP SLOGAN -->
+    <div class="slogan-section">
+        <h2>Bir Şehir, Bir Marka, Bir Tutku</h2>
+    </div>
+
+    <!-- TEK TİP BAĞLANTILI MENÜ (MENÜ AKTİF) -->
+    <nav class="main-nav">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="hakkimizda.html">Kurumsal</a>
+        <a href="sube.html">Şube</a>
+        <a href="paket-menu.html" class="active">Menü</a>
+    </nav>
 
     <div class="container">
         

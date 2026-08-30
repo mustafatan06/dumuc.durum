@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Şubemiz & İletişim - d ü mü ç d ö n e r</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; background-color: #080301; color: #fff; line-height: 1.6; }
+        
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 90%, rgba(255, 69, 0, 0.25) 0%, rgba(8, 3, 1, 0.95) 80%);
+            pointer-events: none; z-index: 1;
+        }
+
+        .hero-banner {
+            width: 100%; background: #050201; padding: 15px 0; text-align: center;
+            border-bottom: 2px solid rgba(255, 87, 34, 0.4); box-shadow: 0 5px 25px rgba(0,0,0,0.9);
+            position: relative; z-index: 10;
+        }
+        .hero-banner img {
+            width: 100%; max-width: 500px; height: auto; display: inline-block; object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.4));
+        }
+
+        .slogan-section { text-align: center; padding: 20px 15px; position: relative; z-index: 10; }
+        .slogan-section h2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 600;
+            background: linear-gradient(135deg, #ff9800, #ffeb3b);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        .main-nav {
+            display: flex; justify-content: center; align-items: center; gap: 55px;
+            padding: 18px 20px; background: rgba(15, 8, 5, 0.9);
+            border-top: 1px solid rgba(255, 87, 34, 0.2); border-bottom: 1px solid rgba(255, 87, 34, 0.2);
+            position: relative; z-index: 10; flex-wrap: wrap;
+        }
+        .main-nav a {
+            text-decoration: none; color: #ddd; font-weight: 600; font-size: 1.05rem;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1.2px;
+        }
+        .main-nav a:hover, .main-nav a.active {
+            color: #ff9800; text-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
+        }
+
+        .container { max-width: 1100px; margin: 40px auto; width: 92%; position: relative; z-index: 2; }
+
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
+            background: linear-gradient(135deg, #ff9800, #ff3300, #ffeb3b);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            filter: drop-shadow(0 0 20px rgba(255, 87, 34, 0.6)); margin-bottom: 10px;
+        }
+        .section-header p { color: #ddd; font-size: 1.05rem; }
+
+        /* ŞUBE BİLGİLERİ IZGARASI */
+        .branch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .branch-card {
+            background: linear-gradient(145deg, rgba(20, 10, 5, 0.8), rgba(35, 15, 8, 0.9));
+            border: 2px solid rgba(255, 87, 34, 0.3);
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .branch-card h2 {
+            font-size: 1.6rem;
+            color: #ffeb3b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 87, 34, 0.3);
+            padding-bottom: 12px;
+        }
+
+        .branch-card h2 i { color: #ff9800; }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: #ddd;
+            font-size: 1.05rem;
+        }
+
+        .info-item i {
+            color: #ff9800;
+            font-size: 1.3rem;
+            margin-top: 3px;
+        }
+
+        .info-item a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .info-item a:hover { color: #ff9800; text-decoration: underline; }
+
+        /* GOOGLE HARİTALAR ALANI */
+        .map-container {
+            background: linear-gradient(145deg, rgba(20, 10, 5, 0.8), rgba(35, 15, 8, 0.9));
+            border: 2px solid rgba(255, 87, 34, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            margin-bottom: 40px;
+        }
+        .map-container h2 {
+            font-size: 1.6rem;
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .map-container h2 i { color: #ff9800; }
+
+        .map-frame {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 87, 34, 0.4);
+            overflow: hidden;
+        }
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* AGENCY BADGE */
+        .agency-badge { margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc; padding: 12px 16px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3); text-align: center; max-width: 650px; backdrop-filter: blur(8px); }
+        .cyber-line-1 { color: #00ffcc; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+        .cyber-line-2 { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.75rem; }
+        .cyber-line-2 a, .cyber-line-2 span { color: #ff9800; text-decoration: none; font-weight: 700; }
+        .cyber-line-2 a:hover { color: #00ffcc; }
+
+        .footer { text-align: center; padding: 20px 10px; color: #777; font-size: 0.8rem; border-top: 1px solid rgba(255,87,34,0.2); background: rgba(8, 3, 1, 0.98); }
+
+        @media(max-width: 900px) {
+            .branch-grid { grid-template-columns: 1fr; gap: 20px; }
+            .main-nav { gap: 25px; padding: 12px 10px; }
+            .main-nav a { font-size: 0.9rem; }
+            .map-frame { height: 300px; }
+        }
+    </style>
+    <script>
+        function handleImageError(imgElement) {
+            const currentSrc = imgElement.src;
+            if (currentSrc.includes('logo.png')) {
+                imgElement.src = 'logo.jpg';
+            } else if (currentSrc.includes('logo.jpg')) {
+                imgElement.src = 'logo.jpeg';
+            } else {
+                imgElement.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- TEK TİP LOGO BANNER -->
+    <header class="hero-banner">
+        <a href="index.html">
+            <img src="logo.png" alt="Dümüç Döner Logo" onerror="handleImageError(this)">
+        </a>
+    </header>
+
+    <!-- TEK TİP SLOGAN -->
+    <div class="slogan-section">
+        <h2>Bir Şehir, Bir Marka, Bir Tutku</h2>
+    </div>
+
+    <!-- TEK TİP BAĞLANTILI MENÜ (ŞUBE AKTİF) -->
+    <nav class="main-nav">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="hakkimizda.html">Kurumsal</a>
+        <a href="sube.html" class="active">Şube</a>
+        <a href="paket-menu.html">Menü</a>
+    </nav>
+
+    <div class="container">
+        
+        <div class="section-header">
+            <h1>Şubemiz & İletişim</h1>
+            <p>Taptaze lezzetlerimizi yerinde tatmak veya bizimle iletişime geçmek için bilgilerimiz.</p>
+        </div>
+
+        <!-- İLETİŞİM VE ADRES BİLGİLERİ -->
+        <div class="branch-grid">
+            
+            <!-- Adres Bilgileri -->
+            <div class="branch-card">
+                <div>
+                    <h2><i class="fa-solid fa-location-dot"></i> Adres Bilgileri</h2>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-pin"></i>
+                        <div>
+                            <strong>Merkez Şube</strong><br>
+                            Şenlik Mahallesi Kızlarpınarı Caddesi No:153/A<br>
+                            KEÇİÖREN / ANKARA
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <strong>Çalışma Saatleri</strong><br>
+                            Haftanın Her Günü: 10:30 - 01:30
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Şenlik+Mahallesi+Kızlarpınarı+Caddesi+No:153/A+Keçiören+Ankara" target="_blank" class="info-item" style="margin-top: 15px; margin-bottom: 0;">
+                    <i class="fa-solid fa-diamond-turn-right" style="color: #ffeb3b;"></i>
+                    <span style="color: #ffeb3b; font-weight: 700;">Yol Tarifi Al (Google Maps)</span>
+                </a>
+            </div>
+
+            <!-- İletişim Bilgileri -->
+            <div class="branch-card">
+                <div>
+                    <h2><i class="fa-solid fa-headset"></i> İletişim Bilgileri</h2>
+                    <div class="info-item">
+                        <i class="fa-solid fa-phone-volume"></i>
+                        <div>
+                            <strong>Telefon / Sipariş Hattı</strong><br>
+                            <a href="tel:03123563000">0312 356 30 00</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- GOOGLE HARİTALAR ENTEGRASYONU (ADRES İŞARETLİ) -->
+        <div class="map-container">
+            <h2><i class="fa-solid fa-map-location-dot"></i> Konumumuz (Google Haritalar)</h2>
+            <div class="map-frame">
+                <iframe src="https://maps.google.com/maps?q=%C5%9Eenlik%20Mahallesi%20K%C4%B1zlarp%C4%B1nar%C4%B1%20Caddesi%20No:153/A%20Ke%C3%A7i%C3%B6ren%20Ankara&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+        <!-- AGENCY BADGE -->
+        <div class="agency-badge">
+            <div class="cyber-line-1"><i class="fa-solid fa-terminal"></i> TAN MEDYA TASARIM TARAFINDAN KURULMAKTADIR</div>
+            <div class="cyber-line-2">
+                <a href="tel:05010901722"><i class="fa-solid fa-phone"></i> 0501 090 17 22</a>
+                <span>|</span> <span style="color:#ddd;">tan.medya.tasarim</span>
+                <span>|</span> <a href="https://www.tanmedyatasarim.com" target="_blank"><i class="fa-solid fa-globe"></i> www.tanmedyatasarim.com</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Dümüç Döner - Tüm Hakları Saklıdır. | Tan Medya Tasarım</p>
+    </footer>
+</body>
+</html>
