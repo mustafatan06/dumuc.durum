@@ -33,30 +33,31 @@
             letter-spacing: 2px; text-transform: uppercase;
         }
 
-        /* Mobilde Kırpılmayı Önleyen Net ve Esnek Menü Alanı */
+        /* Menü Boşlukları ve Esneklik Düzenlemesi */
         .main-nav {
-            display: flex; justify-content: center; align-items: center; gap: 40px;
-            padding: 15px 15px; background: rgba(15, 8, 5, 0.95);
+            display: flex; justify-content: center; align-items: center; gap: 30px;
+            padding: 15px 10px; background: rgba(15, 8, 5, 0.95);
             border-top: 1px solid rgba(255, 87, 34, 0.2); border-bottom: 1px solid rgba(255, 87, 34, 0.2);
             position: relative; z-index: 100; flex-wrap: wrap; width: 100%;
         }
         .main-nav a {
-            text-decoration: none; color: #ddd; font-weight: 600; font-size: 1rem;
+            text-decoration: none; color: #ddd; font-weight: 600; font-size: 0.95rem;
             transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
         }
         .main-nav a:hover, .main-nav a.active {
             color: #ff9800; text-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
         }
 
+        /* Açılır Menü Konum ve Taşma Çözümü */
         .nav-dropdown { position: relative; display: inline-block; }
         .nav-dropdown-content {
-            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            background: rgba(15, 8, 5, 0.98); min-width: 180px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255, 87, 34, 0.3); border-radius: 12px; z-index: 1000; overflow: hidden; padding: 8px 0;
+            display: none; position: absolute; top: 100%; right: 0;
+            background: rgba(15, 8, 5, 0.98); min-width: 190px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 87, 34, 0.3); border-radius: 12px; z-index: 1000; overflow: hidden; padding: 6px 0;
         }
         .nav-dropdown-content a {
             color: #ddd; padding: 10px 15px; text-decoration: none; display: block;
-            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; text-align: center; white-space: nowrap;
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; text-align: left; white-space: nowrap;
         }
         .nav-dropdown-content a:hover { background: rgba(255, 87, 34, 0.15); color: #ff9800; text-shadow: none; }
         .nav-dropdown:hover .nav-dropdown-content { display: block; }
@@ -83,7 +84,6 @@
         .card-visual-area { width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px; flex-grow: 1; }
         .card-visual-area img { max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3)); }
 
-        /* Online Paket Tıklanabilir Logo Platform Rozetleri */
         .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; margin-top: 15px; }
         .platform-badge {
             display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 15px;
@@ -111,8 +111,9 @@
         @media(max-width: 900px) {
             .action-cards-grid { grid-template-columns: 1fr; gap: 20px; }
             .action-card { min-height: auto; padding: 25px 15px; }
-            .main-nav { gap: 20px; padding: 12px 10px; justify-content: space-around; }
-            .main-nav a { font-size: 0.85rem; }
+            .main-nav { gap: 15px; padding: 12px 8px; justify-content: space-around; }
+            .main-nav a { font-size: 0.8rem; letter-spacing: 0.5px; }
+            .nav-dropdown-content { right: -20px; min-width: 170px; }
         }
     </style>
     <script>
@@ -138,13 +139,12 @@
         <h2>Bir Şehir, Bir Marka, Bir Tutku</h2>
     </div>
 
-    <!-- Mobilde Kırpılmayan Net Menü Alanı -->
     <nav class="main-nav">
         <a href="index.html" class="active">Ana Sayfa</a>
         <a href="hakkimizda.html">Kurumsal</a>
         <a href="sube.html">Şube</a>
         <div class="nav-dropdown">
-            <a href="javascript:void(0);">Menü <i class="fa-solid fa-angle-down" style="font-size: 0.8rem; margin-left: 4px;"></i></a>
+            <a href="javascript:void(0);">Menü <i class="fa-solid fa-angle-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
             <div class="nav-dropdown-content">
                 <a href="menuler.html">Menüler</a>
                 <a href="alerjen-bilgileri.html">Alerjen Bilgileri</a>
