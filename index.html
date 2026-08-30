@@ -33,15 +33,16 @@
             letter-spacing: 2px; text-transform: uppercase;
         }
 
+        /* Mobilde Kırpılmayı Önleyen Net ve Esnek Menü Alanı */
         .main-nav {
-            display: flex; justify-content: center; align-items: center; gap: 55px;
-            padding: 18px 20px; background: rgba(15, 8, 5, 0.9);
+            display: flex; justify-content: center; align-items: center; gap: 40px;
+            padding: 15px 15px; background: rgba(15, 8, 5, 0.95);
             border-top: 1px solid rgba(255, 87, 34, 0.2); border-bottom: 1px solid rgba(255, 87, 34, 0.2);
-            position: relative; z-index: 100; flex-wrap: wrap;
+            position: relative; z-index: 100; flex-wrap: wrap; width: 100%;
         }
         .main-nav a {
-            text-decoration: none; color: #ddd; font-weight: 600; font-size: 1.05rem;
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 1.2px;
+            text-decoration: none; color: #ddd; font-weight: 600; font-size: 1rem;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
         }
         .main-nav a:hover, .main-nav a.active {
             color: #ff9800; text-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
@@ -50,12 +51,12 @@
         .nav-dropdown { position: relative; display: inline-block; }
         .nav-dropdown-content {
             display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            background: rgba(15, 8, 5, 0.98); min-width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            background: rgba(15, 8, 5, 0.98); min-width: 180px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             border: 1px solid rgba(255, 87, 34, 0.3); border-radius: 12px; z-index: 1000; overflow: hidden; padding: 8px 0;
         }
         .nav-dropdown-content a {
-            color: #ddd; padding: 10px 20px; text-decoration: none; display: block;
-            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; text-align: center;
+            color: #ddd; padding: 10px 15px; text-decoration: none; display: block;
+            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; text-align: center; white-space: nowrap;
         }
         .nav-dropdown-content a:hover { background: rgba(255, 87, 34, 0.15); color: #ff9800; text-shadow: none; }
         .nav-dropdown:hover .nav-dropdown-content { display: block; }
@@ -82,14 +83,17 @@
         .card-visual-area { width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px; flex-grow: 1; }
         .card-visual-area img { max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3)); }
 
-        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; margin-top: 15px; }
+        /* Online Paket Tıklanabilir Logo Platform Rozetleri */
+        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; margin-top: 15px; }
         .platform-badge {
-            display: flex; align-items: center; justify-content: center; padding: 10px 15px;
-            border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 15px;
+            border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
         }
         .platform-badge:hover { transform: scale(1.03); opacity: 0.95; }
+        .platform-badge img { width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
+        
         .bg-yemeksepeti { background: #ea0029; }
-        .bg-getir { background: #5d3ebc; }
         .bg-ubereats { background: #06c167; }
         .bg-migros { background: #ff6600; }
 
@@ -107,8 +111,8 @@
         @media(max-width: 900px) {
             .action-cards-grid { grid-template-columns: 1fr; gap: 20px; }
             .action-card { min-height: auto; padding: 25px 15px; }
-            .main-nav { gap: 25px; padding: 12px 10px; }
-            .main-nav a { font-size: 0.9rem; }
+            .main-nav { gap: 20px; padding: 12px 10px; justify-content: space-around; }
+            .main-nav a { font-size: 0.85rem; }
         }
     </style>
     <script>
@@ -134,6 +138,7 @@
         <h2>Bir Şehir, Bir Marka, Bir Tutku</h2>
     </div>
 
+    <!-- Mobilde Kırpılmayan Net Menü Alanı -->
     <nav class="main-nav">
         <a href="index.html" class="active">Ana Sayfa</a>
         <a href="hakkimizda.html">Kurumsal</a>
@@ -168,10 +173,15 @@
             <div class="action-card" style="justify-content: flex-start;">
                 <div class="action-card-title" style="margin-bottom: 15px;">Online<br>Paket</div>
                 <div class="platforms-grid">
-                    <a href="https://www.yemeksepeti.com" target="_blank" class="platform-badge bg-yemeksepeti">Yemeksepeti</a>
-                    <a href="https://www.getir.com" target="_blank" class="platform-badge bg-getir">getir yemek</a>
-                    <a href="https://www.ubereats.com" target="_blank" class="platform-badge bg-ubereats">Uber Eats trendyol go</a>
-                    <a href="https://www.migros.com.tr" target="_blank" class="platform-badge bg-migros">MİGROS yemek</a>
+                    <a href="https://www.yemeksepeti.com" target="_blank" class="platform-badge bg-yemeksepeti">
+                        <img src="yemeksepeti.png" alt="Yemeksepeti" onerror="this.style.display='none'"> Yemeksepeti
+                    </a>
+                    <a href="https://www.ubereats.com" target="_blank" class="platform-badge bg-ubereats">
+                        <img src="ubereats.png" alt="Uber Eats" onerror="this.style.display='none'"> Uber Eats / Trendyol Go
+                    </a>
+                    <a href="https://www.migros.com.tr" target="_blank" class="platform-badge bg-migros">
+                        <img src="migros.png" alt="Migros Yemek" onerror="this.style.display='none'"> Migros Yemek
+                    </a>
                 </div>
             </div>
         </div>
