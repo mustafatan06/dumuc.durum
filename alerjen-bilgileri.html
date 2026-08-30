@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>d ü mü ç d ö n e r - Yeni Nesil Dürüm</title>
+    <title>Alerjen Bilgileri - d ü mü ç d ö n e r</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -60,38 +60,24 @@
         .nav-dropdown-content a:hover { background: rgba(255, 87, 34, 0.15); color: #ff9800; text-shadow: none; }
         .nav-dropdown:hover .nav-dropdown-content { display: block; }
 
-        .container { max-width: 1200px; margin: 40px auto; width: 92%; position: relative; z-index: 2; }
+        .container { max-width: 900px; margin: 40px auto; width: 92%; position: relative; z-index: 2; }
 
-        .action-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px; }
-        .action-card {
-            background: linear-gradient(145deg, #ff8c00, #ff4500); border: 2px solid rgba(255, 235, 59, 0.4);
-            border-radius: 20px; min-height: 440px; padding: 30px 20px 20px 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            text-align: center; box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3); transition: 0.3s; position: relative; overflow: hidden;
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
+            background: linear-gradient(135deg, #ff9800, #ff3300, #ffeb3b);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
         }
-        .action-card:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(255, 140, 0, 0.5); }
-        .action-card-title { font-size: 1.8rem; color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
-        .card-pill-btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: #fff; color: #222; padding: 10px 25px; border-radius: 30px;
-            text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s; margin-top: 10px;
+        .alerjen-box {
+            background: linear-gradient(145deg, rgba(20, 10, 5, 0.85), rgba(35, 15, 8, 0.95));
+            border: 2px solid rgba(255, 87, 34, 0.35); border-radius: 24px; padding: 60px 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7); text-align: center; min-height: 350px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .card-pill-btn:hover { background: #ffeb3b; transform: scale(1.05); }
-
-        .card-visual-area { width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px; flex-grow: 1; }
-        .card-visual-area img { max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3)); }
-
-        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; margin-top: 15px; }
-        .platform-badge {
-            display: flex; align-items: center; justify-content: center; padding: 10px 15px;
-            border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s;
-        }
-        .platform-badge:hover { transform: scale(1.03); opacity: 0.95; }
-        .bg-yemeksepeti { background: #ea0029; }
-        .bg-getir { background: #5d3ebc; }
-        .bg-ubereats { background: #06c167; }
-        .bg-migros { background: #ff6600; }
+        .alerjen-box i { font-size: 4rem; color: #ff9800; margin-bottom: 20px; opacity: 0.8; }
+        .alerjen-box p { color: #bbb; font-size: 1.2rem; }
 
         .agency-badge {
             margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
@@ -104,29 +90,17 @@
 
         .footer { text-align: center; padding: 20px 10px; color: #777; font-size: 0.8rem; border-top: 1px solid rgba(255,87,34,0.2); background: rgba(8, 3, 1, 0.98); }
 
-        @media(max-width: 900px) {
-            .action-cards-grid { grid-template-columns: 1fr; gap: 20px; }
-            .action-card { min-height: auto; padding: 25px 15px; }
+        @media(max-width: 768px) {
             .main-nav { gap: 25px; padding: 12px 10px; }
             .main-nav a { font-size: 0.9rem; }
         }
     </style>
-    <script>
-        function handleImageError(imgElement) {
-            const currentSrc = imgElement.src;
-            if (currentSrc.includes('logo.png')) { imgElement.src = 'logo.jpg'; } 
-            else if (currentSrc.includes('logo.jpg')) { imgElement.src = 'logo.jpeg'; } 
-            else { imgElement.style.display = 'none'; }
-        }
-        function handleGelAlError(imgElement) { imgElement.src = 'dumuc.jpeg'; }
-        function handleMotorError(imgElement) { imgElement.src = 'logo.png'; }
-    </script>
 </head>
 <body>
 
     <header class="hero-banner">
         <a href="index.html">
-            <img src="logo.png" alt="Dümüç Döner Logo" onerror="handleImageError(this)">
+            <img src="logo.png" alt="Dümüç Döner Logo" onerror="this.src='logo.jpg'">
         </a>
     </header>
 
@@ -135,11 +109,11 @@
     </div>
 
     <nav class="main-nav">
-        <a href="index.html" class="active">Ana Sayfa</a>
+        <a href="index.html">Ana Sayfa</a>
         <a href="hakkimizda.html">Kurumsal</a>
         <a href="sube.html">Şube</a>
         <div class="nav-dropdown">
-            <a href="javascript:void(0);">Menü <i class="fa-solid fa-angle-down" style="font-size: 0.8rem; margin-left: 4px;"></i></a>
+            <a href="javascript:void(0);" class="active">Menü <i class="fa-solid fa-angle-down" style="font-size: 0.8rem; margin-left: 4px;"></i></a>
             <div class="nav-dropdown-content">
                 <a href="menuler.html">Menüler</a>
                 <a href="alerjen-bilgileri.html">Alerjen Bilgileri</a>
@@ -148,32 +122,13 @@
     </nav>
 
     <div class="container">
-        <div class="action-cards-grid">
-            <div class="action-card">
-                <div class="action-card-title">Gel-Al<br>Menüler</div>
-                <a href="gelal/index.html" class="card-pill-btn"><i class="fa-solid fa-arrow-right"></i> Daha Fazla Bilgi</a>
-                <div class="card-visual-area">
-                    <img src="gelal.png" alt="Gel Al Menüler" style="max-height: 160px; object-fit: contain;" onerror="handleGelAlError(this)">
-                </div>
-            </div>
+        <div class="section-header">
+            <h1>Alerjen Bilgileri</h1>
+        </div>
 
-            <div class="action-card">
-                <div class="action-card-title">Paket<br>Servis</div>
-                <a href="paket-servis/index.html" class="card-pill-btn"><i class="fa-solid fa-arrow-right"></i> Daha Fazla Bilgi</a>
-                <div class="card-visual-area">
-                    <img src="motor.png" alt="Paket Servis" style="max-height: 160px; object-fit: contain;" onerror="handleMotorError(this)">
-                </div>
-            </div>
-
-            <div class="action-card" style="justify-content: flex-start;">
-                <div class="action-card-title" style="margin-bottom: 15px;">Online<br>Paket</div>
-                <div class="platforms-grid">
-                    <a href="https://www.yemeksepeti.com" target="_blank" class="platform-badge bg-yemeksepeti">Yemeksepeti</a>
-                    <a href="https://www.getir.com" target="_blank" class="platform-badge bg-getir">getir yemek</a>
-                    <a href="https://www.ubereats.com" target="_blank" class="platform-badge bg-ubereats">Uber Eats trendyol go</a>
-                    <a href="https://www.migros.com.tr" target="_blank" class="platform-badge bg-migros">MİGROS yemek</a>
-                </div>
-            </div>
+        <div class="alerjen-box">
+            <i class="fa-solid fa-file-image"></i>
+            <p>Alerjen bilgilendirme görseli yakında buraya eklenecektir.</p>
         </div>
 
         <div class="agency-badge">

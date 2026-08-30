@@ -37,7 +37,7 @@
             display: flex; justify-content: center; align-items: center; gap: 55px;
             padding: 18px 20px; background: rgba(15, 8, 5, 0.9);
             border-top: 1px solid rgba(255, 87, 34, 0.2); border-bottom: 1px solid rgba(255, 87, 34, 0.2);
-            position: relative; z-index: 10; flex-wrap: wrap;
+            position: relative; z-index: 100; flex-wrap: wrap;
         }
         .main-nav a {
             text-decoration: none; color: #ddd; font-weight: 600; font-size: 1.05rem;
@@ -46,6 +46,19 @@
         .main-nav a:hover, .main-nav a.active {
             color: #ff9800; text-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
         }
+
+        .nav-dropdown { position: relative; display: inline-block; }
+        .nav-dropdown-content {
+            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            background: rgba(15, 8, 5, 0.98); min-width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 87, 34, 0.3); border-radius: 12px; z-index: 1000; overflow: hidden; padding: 8px 0;
+        }
+        .nav-dropdown-content a {
+            color: #ddd; padding: 10px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; text-align: center;
+        }
+        .nav-dropdown-content a:hover { background: rgba(255, 87, 34, 0.15); color: #ff9800; text-shadow: none; }
+        .nav-dropdown:hover .nav-dropdown-content { display: block; }
 
         .container { max-width: 1100px; margin: 40px auto; width: 92%; position: relative; z-index: 2; }
 
@@ -59,95 +72,36 @@
         }
         .section-header p { color: #ddd; font-size: 1.05rem; }
 
-        /* ŞUBE BİLGİLERİ IZGARASI */
-        .branch-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
+        .branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
         .branch-card {
             background: linear-gradient(145deg, rgba(20, 10, 5, 0.8), rgba(35, 15, 8, 0.9));
-            border: 2px solid rgba(255, 87, 34, 0.3);
-            border-radius: 20px;
-            padding: 35px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border: 2px solid rgba(255, 87, 34, 0.3); border-radius: 20px; padding: 35px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: space-between;
         }
-
         .branch-card h2 {
-            font-size: 1.6rem;
-            color: #ffeb3b;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid rgba(255, 87, 34, 0.3);
-            padding-bottom: 12px;
+            font-size: 1.6rem; color: #ffeb3b; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255, 87, 34, 0.3); padding-bottom: 12px;
         }
-
         .branch-card h2 i { color: #ff9800; }
-
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-            color: #ddd;
-            font-size: 1.05rem;
-        }
-
-        .info-item i {
-            color: #ff9800;
-            font-size: 1.3rem;
-            margin-top: 3px;
-        }
-
-        .info-item a {
-            color: #ffeb3b;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-        }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; color: #ddd; font-size: 1.05rem; }
+        .info-item i { color: #ff9800; font-size: 1.3rem; margin-top: 3px; }
+        .info-item a { color: #ffeb3b; text-decoration: none; font-weight: 700; transition: 0.3s; }
         .info-item a:hover { color: #ff9800; text-decoration: underline; }
 
-        /* GOOGLE HARİTALAR ALANI */
         .map-container {
             background: linear-gradient(145deg, rgba(20, 10, 5, 0.8), rgba(35, 15, 8, 0.9));
-            border: 2px solid rgba(255, 87, 34, 0.3);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            margin-bottom: 40px;
+            border: 2px solid rgba(255, 87, 34, 0.3); border-radius: 20px; padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 40px;
         }
-        .map-container h2 {
-            font-size: 1.6rem;
-            color: #ffeb3b;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .map-container h2 { font-size: 1.6rem; color: #ffeb3b; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
         .map-container h2 i { color: #ff9800; }
+        .map-frame { width: 100%; height: 400px; border-radius: 12px; border: 2px solid rgba(255, 87, 34, 0.4); overflow: hidden; }
+        .map-frame iframe { width: 100%; height: 100%; border: 0; }
 
-        .map-frame {
-            width: 100%;
-            height: 400px;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 87, 34, 0.4);
-            overflow: hidden;
+        .agency-badge {
+            margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
+            padding: 12px 16px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3); text-align: center; max-width: 650px; backdrop-filter: blur(8px);
         }
-        .map-frame iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* AGENCY BADGE */
-        .agency-badge { margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc; padding: 12px 16px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3); text-align: center; max-width: 650px; backdrop-filter: blur(8px); }
         .cyber-line-1 { color: #00ffcc; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
         .cyber-line-2 { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.75rem; }
         .cyber-line-2 a, .cyber-line-2 span { color: #ff9800; text-decoration: none; font-weight: 700; }
@@ -165,49 +119,44 @@
     <script>
         function handleImageError(imgElement) {
             const currentSrc = imgElement.src;
-            if (currentSrc.includes('logo.png')) {
-                imgElement.src = 'logo.jpg';
-            } else if (currentSrc.includes('logo.jpg')) {
-                imgElement.src = 'logo.jpeg';
-            } else {
-                imgElement.style.display = 'none';
-            }
+            if (currentSrc.includes('logo.png')) { imgElement.src = 'logo.jpg'; } 
+            else if (currentSrc.includes('logo.jpg')) { imgElement.src = 'logo.jpeg'; } 
+            else { imgElement.style.display = 'none'; }
         }
     </script>
 </head>
 <body>
 
-    <!-- TEK TİP LOGO BANNER -->
     <header class="hero-banner">
         <a href="index.html">
             <img src="logo.png" alt="Dümüç Döner Logo" onerror="handleImageError(this)">
         </a>
     </header>
 
-    <!-- TEK TİP SLOGAN -->
     <div class="slogan-section">
         <h2>Bir Şehir, Bir Marka, Bir Tutku</h2>
     </div>
 
-    <!-- TEK TİP BAĞLANTILI MENÜ (ŞUBE AKTİF) -->
     <nav class="main-nav">
         <a href="index.html">Ana Sayfa</a>
         <a href="hakkimizda.html">Kurumsal</a>
         <a href="sube.html" class="active">Şube</a>
-        <a href="paket-menu.html">Menü</a>
+        <div class="nav-dropdown">
+            <a href="javascript:void(0);">Menü <i class="fa-solid fa-angle-down" style="font-size: 0.8rem; margin-left: 4px;"></i></a>
+            <div class="nav-dropdown-content">
+                <a href="menuler.html">Menüler</a>
+                <a href="alerjen-bilgileri.html">Alerjen Bilgileri</a>
+            </div>
+        </div>
     </nav>
 
     <div class="container">
-        
         <div class="section-header">
             <h1>Şubemiz & İletişim</h1>
             <p>Taptaze lezzetlerimizi yerinde tatmak veya bizimle iletişime geçmek için bilgilerimiz.</p>
         </div>
 
-        <!-- İLETİŞİM VE ADRES BİLGİLERİ -->
         <div class="branch-grid">
-            
-            <!-- Adres Bilgileri -->
             <div class="branch-card">
                 <div>
                     <h2><i class="fa-solid fa-location-dot"></i> Adres Bilgileri</h2>
@@ -233,7 +182,6 @@
                 </a>
             </div>
 
-            <!-- İletişim Bilgileri -->
             <div class="branch-card">
                 <div>
                     <h2><i class="fa-solid fa-headset"></i> İletişim Bilgileri</h2>
@@ -246,10 +194,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- GOOGLE HARİTALAR ENTEGRASYONU (ADRES İŞARETLİ) -->
         <div class="map-container">
             <h2><i class="fa-solid fa-map-location-dot"></i> Konumumuz (Google Haritalar)</h2>
             <div class="map-frame">
@@ -257,7 +203,6 @@
             </div>
         </div>
 
-        <!-- AGENCY BADGE -->
         <div class="agency-badge">
             <div class="cyber-line-1"><i class="fa-solid fa-terminal"></i> TAN MEDYA TASARIM TARAFINDAN KURULMAKTADIR</div>
             <div class="cyber-line-2">
@@ -266,7 +211,6 @@
                 <span>|</span> <a href="https://www.tanmedyatasarim.com" target="_blank"><i class="fa-solid fa-globe"></i> www.tanmedyatasarim.com</a>
             </div>
         </div>
-
     </div>
 
     <footer class="footer">
