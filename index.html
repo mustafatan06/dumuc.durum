@@ -42,7 +42,7 @@
             100% { transform: scale(1.02); }
         }
 
-        /* 5 Saniye Sonra Kapanacak Efekt Katmanı */
+        /* 8 Saniye Sonra Kapanacak Konfeti Efekt Katmanı */
         #fx-canvas {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 999; transition: opacity 1s ease;
@@ -159,7 +159,7 @@
         function handleGelAlError(imgElement) { imgElement.src = 'dumuc.jpeg'; }
         function handleMotorError(imgElement) { imgElement.src = 'logo.png'; }
 
-        // Sadece İlk 5 Saniye Çalışıp Otomatik Kapanan Volkan Meşale Motoru
+        // İlk 8 Saniye Çalışıp Otomatik Kapanan Renkli Konfeti Motoru
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('fx-canvas');
             const ctx = canvas.getContext('2d');
@@ -171,87 +171,63 @@
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
 
-            class VolcanoParticle {
-                constructor(x, isTop) {
-                    this.x = x;
-                    this.isTop = isTop;
-                    this.y = isTop ? 45 : canvas.height - 45;
+            class ConfettiPiece {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * -canvas.height;
+                    this.size = Math.random() * 10 + 6;
+                    this.speedY = Math.random() * 4 + 2;
+                    this.speedX = Math.random() * 4 - 2;
+                    this.rotation = Math.random() * 360;
+                    this.rotationSpeed = Math.random() * 10 - 5;
                     
-                    const angleBase = isTop ? Math.PI / 2 : -Math.PI / 2;
-                    const angle = angleBase + (Math.random() - 0.5) * 1.2;
-                    const speed = Math.random() * 12 + 5;
-                    
-                    this.vx = Math.cos(angle) * speed;
-                    this.vy = Math.sin(angle) * speed;
-                    this.gravity = isTop ? 0.2 : -0.2;
-                    this.alpha = 1;
-                    this.decay = Math.random() * 0.025 + 0.012;
-                    this.size = Math.random() * 3.5 + 1.5;
-                    
-                    const colors = ['#ff3300', '#ff9800', '#ffeb3b', '#ffffff', '#ff5722'];
+                    const colors = ['#ff3300', '#ff9800', '#ffeb3b', '#00ffcc', '#ffffff', '#ff00ff', '#00ffff'];
                     this.color = colors[Math.floor(Math.random() * colors.length)];
                 }
                 update() {
-                    this.vx *= 0.97;
-                    this.vy *= 0.97;
-                    this.vy += this.gravity;
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    this.alpha -= this.decay;
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    this.rotation += this.rotationSpeed;
+                    if (this.y > canvas.height) {
+                        this.y = -20;
+                        this.x = Math.random() * canvas.width;
+                    }
                 }
                 draw(ctx) {
                     ctx.save();
-                    ctx.globalAlpha = Math.max(this.alpha, 0);
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate((this.rotation * Math.PI) / 180);
                     ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.shadowBlur = 15;
-                    ctx.shadowColor = this.color;
-                    ctx.fill();
+                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 1.5);
                     ctx.restore();
                 }
             }
 
-            let particles = [];
+            let confettiList = [];
             let isActive = true;
 
-            function spawnVolcanoes() {
-                if (!isActive) return;
-                const xPoints = [canvas.width * 0.1, canvas.width * 0.35, canvas.width * 0.65, canvas.width * 0.9];
-                xPoints.forEach(x => {
-                    for (let i = 0; i < 4; i++) {
-                        particles.push(new VolcanoParticle(x + (Math.random() * 30 - 15), false));
-                    }
-                    for (let i = 0; i < 4; i++) {
-                        particles.push(new VolcanoParticle(x + (Math.random() * 30 - 15), true));
-                    }
-                });
+            for (let i = 0; i < 120; i++) {
+                confettiList.push(new ConfettiPiece());
             }
-
-            const intervalId = setInterval(spawnVolcanoes, 40);
 
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = particles.length - 1; i >= 0; i--) {
-                    particles[i].update();
-                    particles[i].draw(ctx);
-                    if (particles[i].alpha <= 0) {
-                        particles.splice(i, 1);
-                    }
-                }
-                if (isActive || particles.length > 0) {
+                confettiList.forEach(p => {
+                    if (isActive) p.update();
+                    p.draw(ctx);
+                });
+                if (isActive || confettiList.some(p => p.y < canvas.height)) {
                     requestAnimationFrame(animate);
                 }
             }
             animate();
 
-            // 5 Saniye (5000 ms) sonra animasyonu tamamen durdur ve canvası gizle
+            // 8 Saniye (8000 ms) sonra konfetileri durdur ve canvası gizle
             setTimeout(() => {
                 isActive = false;
-                clearInterval(intervalId);
                 canvas.style.opacity = '0';
                 setTimeout(() => canvas.remove(), 1000);
-            }, 5000);
+            }, 8000);
         });
     </script>
 </head>
@@ -262,7 +238,7 @@
         <span class="banner-text">🎉 AÇILDIK !!! DÜMÜÇLEMEYE BEKLİYORUZ . 🎉</span>
     </div>
 
-    <!-- 5 Saniye Sonra Kapanacak Volkan Efekt Motoru -->
+    <!-- 8 Saniye Sonra Kapanacak Konfeti Efekt Motoru -->
     <canvas id="fx-canvas"></canvas>
 
     <header class="hero-banner">
