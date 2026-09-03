@@ -15,41 +15,6 @@
             pointer-events: none; z-index: 1;
         }
 
-        /* Sabit Üst Kalıcı Bant */
-        .fixed-banner-top {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 10000;
-            background: linear-gradient(135deg, #ff3300, #ff9800, #ffeb3b);
-            color: #080301; padding: 10px 15px; text-align: center; font-weight: 900;
-            font-size: clamp(0.9rem, 2vw, 1.2rem); text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 4px 20px rgba(255, 152, 0, 0.8); border-bottom: 2px solid #fff;
-        }
-        
-        /* Sabit Alt Kalıcı Bant */
-        .fixed-banner-bottom {
-            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 10000;
-            background: linear-gradient(135deg, #ffeb3b, #ff9800, #ff3300);
-            color: #080301; padding: 10px 15px; text-align: center; font-weight: 900;
-            font-size: clamp(0.9rem, 2vw, 1.2rem); text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 -4px 20px rgba(255, 152, 0, 0.8); border-top: 2px solid #fff;
-        }
-
-        .banner-text {
-            display: inline-block; animation: pulseText 1.5s ease-in-out infinite alternate;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-        @keyframes pulseText {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.02); }
-        }
-
-        /* 8 Saniye Sonra Kapanacak Konfeti Efekt Katmanı */
-        #fx-canvas {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 999; transition: opacity 1s ease;
-        }
-
-        body { padding-top: 45px; padding-bottom: 45px; }
-
         .hero-banner {
             width: 100%; background: #050201; padding: 15px 0; text-align: center;
             border-bottom: 2px solid rgba(255, 87, 34, 0.4); box-shadow: 0 5px 25px rgba(0,0,0,0.9);
@@ -60,12 +25,16 @@
             filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.4));
         }
 
-        .slogan-section { text-align: center; padding: 20px 15px; position: relative; z-index: 10; }
+        .slogan-section { 
+            text-align: center; padding: 20px 10px; position: relative; z-index: 10; 
+            width: 100%; overflow: hidden;
+        }
         .slogan-section h2 {
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 600;
+            font-size: clamp(0.85rem, 3.8vw, 1.8rem); font-weight: 600;
             background: linear-gradient(135deg, #ff9800, #ffeb3b);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 2px; text-transform: uppercase;
+            letter-spacing: clamp(1px, 0.5vw, 2px); text-transform: uppercase;
+            white-space: nowrap; display: inline-block; width: 100%;
         }
 
         .main-nav {
@@ -119,12 +88,12 @@
 
         .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; margin-top: 15px; }
         .platform-badge {
-            display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 15px;
-            border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
+            display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 10px 15px;
+            border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
             border: 1px solid rgba(255,255,255,0.2);
         }
         .platform-badge:hover { transform: scale(1.03); opacity: 0.95; }
-        .platform-badge img { width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
+        .platform-badge img { width: 32px; height: 32px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
         
         .bg-yemeksepeti { background: #ea0029; }
         .bg-ubereats { background: #06c167; }
@@ -158,88 +127,9 @@
         }
         function handleGelAlError(imgElement) { imgElement.src = 'dumuc.jpeg'; }
         function handleMotorError(imgElement) { imgElement.src = 'logo.png'; }
-
-        // İlk 8 Saniye Çalışıp Otomatik Kapanan Renkli Konfeti Motoru
-        window.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('fx-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            class ConfettiPiece {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * -canvas.height;
-                    this.size = Math.random() * 10 + 6;
-                    this.speedY = Math.random() * 4 + 2;
-                    this.speedX = Math.random() * 4 - 2;
-                    this.rotation = Math.random() * 360;
-                    this.rotationSpeed = Math.random() * 10 - 5;
-                    
-                    const colors = ['#ff3300', '#ff9800', '#ffeb3b', '#00ffcc', '#ffffff', '#ff00ff', '#00ffff'];
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                }
-                update() {
-                    this.y += this.speedY;
-                    this.x += this.speedX;
-                    this.rotation += this.rotationSpeed;
-                    if (this.y > canvas.height) {
-                        this.y = -20;
-                        this.x = Math.random() * canvas.width;
-                    }
-                }
-                draw(ctx) {
-                    ctx.save();
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate((this.rotation * Math.PI) / 180);
-                    ctx.fillStyle = this.color;
-                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 1.5);
-                    ctx.restore();
-                }
-            }
-
-            let confettiList = [];
-            let isActive = true;
-
-            for (let i = 0; i < 120; i++) {
-                confettiList.push(new ConfettiPiece());
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                confettiList.forEach(p => {
-                    if (isActive) p.update();
-                    p.draw(ctx);
-                });
-                if (isActive || confettiList.some(p => p.y < canvas.height)) {
-                    requestAnimationFrame(animate);
-                }
-            }
-            animate();
-
-            // 8 Saniye (8000 ms) sonra konfetileri durdur ve canvası gizle
-            setTimeout(() => {
-                isActive = false;
-                canvas.style.opacity = '0';
-                setTimeout(() => canvas.remove(), 1000);
-            }, 8000);
-        });
     </script>
 </head>
 <body>
-
-    <!-- Sabit Üst Bant -->
-    <div class="fixed-banner-top">
-        <span class="banner-text">🎉 AÇILDIK !!! DÜMÜÇLEMEYE BEKLİYORUZ . 🎉</span>
-    </div>
-
-    <!-- 8 Saniye Sonra Kapanacak Konfeti Efekt Motoru -->
-    <canvas id="fx-canvas"></canvas>
 
     <header class="hero-banner">
         <a href="index.html">
@@ -311,10 +201,5 @@
     <footer class="footer">
         <p>&copy; 2026 Dümüç Döner - Tüm Hakları Saklıdır. | Tan Medya Tasarım</p>
     </footer>
-
-    <!-- Sabit Alt Bant -->
-    <div class="fixed-banner-bottom">
-        <span class="banner-text">🎉 AÇILDIK !!! DÜMÜÇLEMEYE BEKLİYORUZ . 🎉</span>
-    </div>
 </body>
 </html>
