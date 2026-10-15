@@ -86,18 +86,19 @@
         .card-visual-area { width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px; flex-grow: 1; }
         .card-visual-area img { max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3)); }
 
-        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; margin-top: 15px; }
+        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; margin-top: 10px; }
         .platform-badge {
-            display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 10px 15px;
-            border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
+            display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 8px 12px;
+            border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
             border: 1px solid rgba(255,255,255,0.2);
         }
         .platform-badge:hover { transform: scale(1.03); opacity: 0.95; }
-        .platform-badge img { width: 32px; height: 32px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
+        .platform-badge img { width: 28px; height: 28px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
         
-        .bg-yemeksepeti { background: #ea0029; }
-        .bg-ubereats { background: #06c167; }
-        .bg-migros { background: #ff6600; }
+        .bg-sodexo { background: #d50032; }
+        .bg-ticket { background: #ef3340; }
+        .bg-multinet { background: #0055a5; }
+        .bg-setcard { background: #28a745; }
 
         .agency-badge {
             margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
@@ -127,6 +128,16 @@
         }
         function handleGelAlError(imgElement) { imgElement.src = 'dumuc.jpeg'; }
         function handleMotorError(imgElement) { imgElement.src = 'logo.png'; }
+        // Yemek kartı logoları için akıllı hata yakalama (png bulunamazsa jpg dener)
+        function handleCardLogoError(imgElement, cardName) {
+            if (imgElement.src.endsWith('.png')) {
+                imgElement.src = cardName + '.jpg';
+            } else if (imgElement.src.endsWith('.jpg')) {
+                imgElement.src = cardName + '.jpeg';
+            } else {
+                imgElement.style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body>
@@ -173,17 +184,20 @@
             </div>
 
             <div class="action-card" style="justify-content: flex-start;">
-                <div class="action-card-title" style="margin-bottom: 15px;">Online<br>Paket</div>
+                <div class="action-card-title" style="margin-bottom: 10px;">Yemek<br>Kartları</div>
                 <div class="platforms-grid">
-                    <a href="https://www.yemeksepeti.com" target="_blank" class="platform-badge bg-yemeksepeti">
-                        <img src="yemeksepeti.png" alt="Yemeksepeti" onerror="this.style.display='none'"> Yemeksepeti
-                    </a>
-                    <a href="https://www.ubereats.com" target="_blank" class="platform-badge bg-ubereats">
-                        <img src="ubereats.png" alt="Uber Eats" onerror="this.style.display='none'"> Uber Eats / Trendyol Go
-                    </a>
-                    <a href="https://www.migros.com.tr" target="_blank" class="platform-badge bg-migros">
-                        <img src="migros.png" alt="Migros Yemek" onerror="this.style.display='none'"> Migros Yemek
-                    </a>
+                    <div class="platform-badge bg-sodexo">
+                        <img src="sodexo.png" alt="Sodexo / Pluxee" onerror="handleCardLogoError(this, 'sodexo')"> Sodexo / Pluxee
+                    </div>
+                    <div class="platform-badge bg-ticket">
+                        <img src="ticket.png" alt="Ticket Restaurant" onerror="handleCardLogoError(this, 'ticket')"> Ticket Restaurant
+                    </div>
+                    <div class="platform-badge bg-multinet">
+                        <img src="multinet.png" alt="Multinet" onerror="handleCardLogoError(this, 'multinet')"> Multinet
+                    </div>
+                    <div class="platform-badge bg-setcard">
+                        <img src="setcard.png" alt="Setcard" onerror="handleCardLogoError(this, 'setcard')"> Setcard
+                    </div>
                 </div>
             </div>
         </div>
