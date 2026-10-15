@@ -86,19 +86,20 @@
         .card-visual-area { width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px; flex-grow: 1; }
         .card-visual-area img { max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3)); }
 
-        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; margin-top: 10px; }
+        .platforms-grid { display: grid; grid-template-columns: 1fr; gap: 8px; width: 100%; margin-top: 8px; }
         .platform-badge {
-            display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 8px 12px;
-            border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
+            display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 7px 10px;
+            border-radius: 10px; font-weight: 700; font-size: 0.8rem; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s;
             border: 1px solid rgba(255,255,255,0.2);
         }
         .platform-badge:hover { transform: scale(1.03); opacity: 0.95; }
-        .platform-badge img { width: 28px; height: 28px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
+        .platform-badge img { width: 24px; height: 24px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
         
         .bg-sodexo { background: #d50032; }
         .bg-ticket { background: #ef3340; }
         .bg-multinet { background: #0055a5; }
         .bg-setcard { background: #28a745; }
+        .bg-metropol { background: #6f42c1; }
 
         .agency-badge {
             margin: 50px auto 20px auto; background: rgba(10, 3, 1, 0.92); border: 1px solid #00ffcc;
@@ -128,7 +129,6 @@
         }
         function handleGelAlError(imgElement) { imgElement.src = 'dumuc.jpeg'; }
         function handleMotorError(imgElement) { imgElement.src = 'logo.png'; }
-        // Yemek kartı logoları için akıllı hata yakalama (png bulunamazsa jpg dener)
         function handleCardLogoError(imgElement, cardName) {
             if (imgElement.src.endsWith('.png')) {
                 imgElement.src = cardName + '.jpg';
@@ -197,6 +197,9 @@
                     </div>
                     <div class="platform-badge bg-setcard">
                         <img src="setcard.png" alt="Setcard" onerror="handleCardLogoError(this, 'setcard')"> Setcard
+                    </div>
+                    <div class="platform-badge bg-metropol">
+                        <img src="metropol.png" alt="Metropol" onerror="handleCardLogoError(this, 'metropol')"> Metropol Card
                     </div>
                 </div>
             </div>
